@@ -1,45 +1,28 @@
-local treesitterLanguages = {
-    "agda",
-    "bash",
-    "c",
-    "c_sharp",
-    "cmake",
-    "cpp",
-    "css",
-    "dockerfile",
-    "haskell",
-    "html",
-    "java",
-    "javascript",
-    "jq",
-    "json",
-    "kotlin",
-    "lua",
-    "markdown",
-    "markdown_inline",
-    "python",
-    "query",
-    "regex",
-    "scala",
-    "scss",
-    "sql",
-    "tsx",
-    "typescript",
-    "vim",
-    "yaml",
-}
-
 return {
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
+        opts_extend = { "ensure_installed" },
         opts = {
-            ensure_installed = treesitterLanguages,
+            ensure_installed = {
+                "bash",
+                "c",
+                "lua",
+                "markdown",
+                "markdown_inline",
+                "query",
+                "regex",
+                "vim",
+                "yaml",
+            },
             auto_install = true,
             highlight = { enable = true },
             indent = { enable = true, disable = { "yaml", "python", "html" } },
         },
         config = function(_, opts)
+            if type(opts.ensure_installed) == "table" then
+                opts.ensure_installed = vim.fn.uniq(vim.fn.sort(opts.ensure_installed))
+            end
             require("nvim-treesitter.configs").setup(opts)
         end,
     },

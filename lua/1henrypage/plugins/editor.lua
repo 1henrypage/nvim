@@ -310,6 +310,7 @@ return {
 				{ "<leader>w", group = "window" },
 				{ "<leader>c", group = "code" },
 				{ "<leader>h", group = "git" },
+				{ "<leader>d", group = "debug" },
 			},
 		},
 	},
