@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  stylua:
+    name: Format check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: JohnnyMorganz/stylua-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --check lua/
+
+  luacheck:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install luacheck
+        run: sudo luarocks install luacheck
+      - name: Run luacheck
+        run: luacheck lua/
+
+  load-config:
+    name: Smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Neovim
+        uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: stable
+      - name: Load config
+        run: |
+          export XDG_CONFIG_HOME="$RUNNER_TEMP/config"
+          mkdir -p "$XDG_CONFIG_HOME"
+          ln -s "$GITHUB_WORKSPACE" "$XDG_CONFIG_HOME/nvim"
+          nvim --headless -c "qa!" 2>&1
