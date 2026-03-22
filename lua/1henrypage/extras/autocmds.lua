@@ -71,14 +71,19 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     end,
 })
 
--- Hide stuff in terminal
-vim.api.nvim_create_autocmd({ "TermOpen" }, {
+-- Hide stuff in terminal and auto-enter insert mode
+vim.api.nvim_create_autocmd("TermOpen", {
     group = Utils.augroup("terminal"),
-    pattern = { "*" },
+    pattern = "*",
     callback = function()
-        vim.opt_local["number"] = false
-        vim.opt_local["signcolumn"] = "no"
-        vim.opt_local["foldcolumn"] = "0"
+        vim.opt_local.number = false
+        vim.opt_local.signcolumn = "no"
+        vim.opt_local.foldcolumn = "0"
+        vim.defer_fn(function()
+            if vim.bo[0].buftype == "terminal" then
+                vim.cmd("startinsert")
+            end
+        end, 100)
     end,
 })
 
@@ -90,27 +95,17 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
     end,
 })
 
--- start terminal in insert mode
-vim.api.nvim_create_autocmd("TermOpen", {
-    desc = "Auto enter insert mode when opening a terminal",
-    group = Utils.augroup("terminal"),
-    pattern = "*",
+-- funny cursor business thing
+local insert_cursorline_group = Utils.augroup("insert_cursorline")
+vim.api.nvim_create_autocmd("InsertEnter", {
+    group = insert_cursorline_group,
     callback = function()
-        vim.defer_fn(function()
-            if vim.api.nvim_buf_get_option(0, "buftype") == "terminal" then
-                vim.cmd([[startinsert]])
-            end
-        end, 100)
+        vim.api.nvim_set_hl(0, "CursorLine", { bg = "#005f00", ctermbg = 23 })
     end,
 })
--- funny cursor business thing
-vim.api.nvim_exec(
-    [[
-  augroup 1henrypage_InsertModeCursorLine
-    autocmd!
-    autocmd InsertEnter * highlight CursorLine guibg=#005f00  ctermbg=23
-    autocmd InsertLeave * highlight CursorLine guibg=NONE ctermbg=NONE
-  augroup END
-]],
-    false
-)
+vim.api.nvim_create_autocmd("InsertLeave", {
+    group = insert_cursorline_group,
+    callback = function()
+        vim.api.nvim_set_hl(0, "CursorLine", {})
+    end,
+})

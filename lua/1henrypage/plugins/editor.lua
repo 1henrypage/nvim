@@ -3,7 +3,6 @@ return {
 	-- Telescope Settings
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.5",
 		dependencies = {
 			{
 				"nvim-telescope/telescope-live-grep-args.nvim",
@@ -224,6 +223,7 @@ return {
         },
 
 		config = function(_, opts)
+			require("neo-tree").setup(opts)
 			vim.keymap.set("n", "<leader>t", ":Neotree toggle<CR>", {})
 		end,
 	},
@@ -299,4 +299,6 @@ return {
 			vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 		end,
 	},
+
+	{ "folke/which-key.nvim", event = "VeryLazy", opts = {} },
 }

@@ -1,10 +1,6 @@
 local Profile = require("1henrypage.profile")
 
 ---@class Util
----@field root 1henrypage.utils.root
----@field cmd 1henrypage.utils.cmd
----@field cmp 1henrypage.utils.cmp
----@field string 1henrypage.utils.string
 local M = {}
 
 setmetatable(M, {
@@ -96,16 +92,6 @@ function M.safe_keymap_set(mode, lhs, rhs, opts)
       opts.remap = nil
     end
     vim.keymap.set(modes, lhs, rhs, opts)
-  end
-end
-
-local executed = false
---- Ensures that the given callback is only executed once
----@param callback fun()
-function M.once(callback)
-  if not executed then
-    callback()
-    executed = true
   end
 end
 

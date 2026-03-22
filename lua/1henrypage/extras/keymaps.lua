@@ -29,6 +29,9 @@ map("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
 map("i", "<A-S-j>", "<ESC>:m .+1<CR>==gi")
 map("i", "<A-S-k>", "<ESC>:m .-2<CR>==gi")
 
--- split window 
+-- split window
 map("n", "<leader>wv", ":vsplit<CR>")
 map("n", "<leader>wh", ":split<CR>")
+
+-- commenting (replaces mini.comment)
+vim.keymap.set({"n", "v"}, "<C-_>", "gcc", { remap = true })

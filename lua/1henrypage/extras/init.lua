@@ -27,7 +27,6 @@ function M.setup()
   -- Lazy load `autocmds` when opening a file
   if not no_file then
     M.load("autocmds")
-    M.load("commands")
   end
 
   vim.api.nvim_create_autocmd("User", {
@@ -36,7 +35,6 @@ function M.setup()
     callback = function()
       if no_file then
         M.load("autocmds")
-        M.load("commands")
       end
       M.load("keymaps")
     end,

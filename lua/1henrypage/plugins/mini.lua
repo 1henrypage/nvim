@@ -1,55 +1,9 @@
 local Icons = require("1henrypage.extras").icons
 
-local comment_key = "<C-_>"
-
-
-local comment_config = {
-    mappings = {
-        comment = comment_key,
-        comment_line = comment_key,
-        comment_visual = comment_key,
-        textobject = comment_key,
-    },
-}
-
 local split_join_config = {
     mappings = {
         toggle = "<leader>J",
     },
-}
-
-local mini_snip_config = -- No need to copy this inside `setup()`. Will be used automatically.
-{
-  -- Array of snippets and loaders (see |MiniSnippets.config| for details).
-  -- Nothing is defined by default. Add manually to have snippets to match.
-  snippets = {},
-
-  -- TODO MODIFY CONFIG 
-
-  -- Module mappings. Use `''` (empty string) to disable one.
-  mappings = {
-    -- Expand snippet at cursor position. Created globally in Insert mode.
-    expand = '<C-j>',
-
-    -- Interact with default `expand.insert` session.
-    -- Created for the duration of active session(s)
-    jump_next = '<C-l>',
-    jump_prev = '<C-h>',
-    stop = '<C-c>',
-  },
-
-  -- Functions describing snippet expansion. If `nil`, default values
-  -- are `MiniSnippets.default_<field>()`.
-  expand = {
-    -- Resolve raw config snippets at context
-    prepare = nil,
-    -- Match resolved snippets at cursor position
-    match = nil,
-    -- Possibly choose among matched snippets
-    select = nil,
-    -- Insert selected snippet
-    insert = nil,
-  },
 }
 
 local ai_config = {
@@ -132,12 +86,6 @@ local indent_scope_config = {
     -- Delay (in ms) between event and start of drawing scope indicator
     delay = 100,
 
-    -- Animation rule for scope's first drawing. A function which, given
-    -- next and total step numbers, returns wait time (in ms). See
-    -- |MiniIndentscope.gen_animation| for builtin options. To disable
-    -- animation, use `require('mini.indentscope').gen_animation.none()`.
-    -- animation = --<function: implements constant 20ms between steps>,
-
     -- Whether to auto draw scope: return `true` to draw, `false` otherwise.
     -- Default draws only fully computed scope (see `options.n_lines`).
     predicate = function(scope) return not scope.body.is_incomplete end,
@@ -181,34 +129,27 @@ local indent_scope_config = {
 }
 
 
-
-
 return {
     {
         "echasnovski/mini.nvim",
         version = "*",
         config = function(_, opts)
-            require("mini.ai").setup({ai_config})
-            require("mini.comment").setup(comment_config)
+            require("mini.ai").setup(ai_config)
             require("mini.pairs").setup({})
             require("mini.notify").setup(notify_config)
             require("mini.bracketed").setup({})
-            require("mini.starter").setup({}) 
+            require("mini.starter").setup({})
             require("mini.splitjoin").setup(split_join_config)
             require("mini.surround").setup({})
             -- require("mini.statusline").setup({}) # don't use this it's shit
             require("mini.bufremove").setup({})
             require("mini.cursorword").setup({})
             require("mini.indentscope").setup(indent_scope_config)
-            require("mini.surround").setup({})
 
-
-            -- keybinds 
-            vim.keymap.set('n', '<leader>bd', function ()
+            -- keybinds
+            vim.keymap.set('n', '<leader>bd', function()
                 require('mini.bufremove').delete(0, false)
             end, {})
-            -- 
         end,
     },
 }
-

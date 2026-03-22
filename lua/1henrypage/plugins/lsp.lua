@@ -16,6 +16,7 @@ return {
         },
         config = function(_, opts)
             require("mason").setup(opts)
+            -- Run :MasonInstall stylua to enable lua formatting
         end,
     },
 
@@ -24,13 +25,11 @@ return {
         opts = {
             ensure_installed = {
                 "lua_ls",
+                "basedpyright",
+                "ruff",
             },
             automatic_installation = false,
-            handlers = nil, -- change this later
         },
-        config = function(_, opts)
-            require("mason-lspconfig").setup(opts)
-        end,
     },
 
     {
@@ -42,13 +41,10 @@ return {
             "williamboman/mason-lspconfig.nvim",
         },
         config = function()
-            local lspconfig = require("lspconfig")
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-            local capabilities = require("cmp_nvim_lsp").default_capabilities() --lsps
-
-            lspconfig.lua_ls.setup({
-                capabilities = capabilities,
-            })
+            vim.lsp.config("*", { capabilities = capabilities })
+            vim.lsp.enable({ "lua_ls", "basedpyright", "ruff" })
 
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = Utils.augroup("LspConfig"),
@@ -70,7 +66,7 @@ return {
                     vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
                     vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
                     vim.keymap.set("n", "<leader>gf", function()
-                        vim.lsp.buf.format({ async = true })
+                        require("conform").format({ async = true })
                     end, opts)
                 end,
             })
@@ -78,15 +74,13 @@ return {
     },
 
     {
-        "nvimtools/none-ls.nvim",
-        config = function()
-            local null_ls = require("null-ls")
-            null_ls.setup({
-                sources = {
-                    null_ls.builtins.formatting.stylua,
-                },
-            })
-        end,
+        "stevearc/conform.nvim",
+        event = "BufWritePre",
+        opts = {
+            formatters_by_ft = {
+                lua = { "stylua" },
+            },
+        },
     },
 
 }

@@ -10,12 +10,4 @@ local M = {
     version = "0.1.0",
 }
 
-M = setmetatable({}, { __index = M })
-
----@param opts? Profile
-function M.setup(opts)
-  vim.tbl_deep_extend("force", M, opts or {}) -- Modify `M` in place
-end
-
 return M
-

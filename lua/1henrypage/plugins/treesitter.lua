@@ -23,6 +23,7 @@ local treesitterLanguages = {
     "scala",
     "scss",
     "sql",
+    "tsx",
     "typescript",
     "vim",
     "yaml",
@@ -37,12 +38,6 @@ return {
             auto_install = true,
             highlight = { enable = true },
             indent = { enable = true, disable = { "yaml", "python", "html" } },
-            context_commentstring = { enable = true },
-            rainbow = {
-                enable = true,
-                query = "rainbow-parens",
-                disable = { "jsx", "html" },
-            },
         },
         config = function(_, opts)
             require("nvim-treesitter.configs").setup(opts)

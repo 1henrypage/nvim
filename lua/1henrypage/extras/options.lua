@@ -52,10 +52,9 @@ local options = {
   wildmenu = true,
   wildmode = "longest:full,full",
   -- misc
-  wrap = false, 
-  title = true, 
-  titlestring = "%<%F%=%l/%L - %y%m%r%w [%{&filetype}] - %y[%{&readonly?'RO':''}] - nvim",
-  titlelen = 85, 
+  wrap = false,
+  title = true,
+  titlelen = 85,
   -- session ops
   sessionoptions = { "buffers", "curdir", "tabpages", "winsize" },
   -- folds
