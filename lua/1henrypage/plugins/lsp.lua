@@ -27,6 +27,7 @@ return {
                 "lua_ls",
                 "basedpyright",
                 "ruff",
+                "jdtls",
             },
             automatic_installation = false,
         },
@@ -44,7 +45,7 @@ return {
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             vim.lsp.config("*", { capabilities = capabilities })
-            vim.lsp.enable({ "lua_ls", "basedpyright", "ruff" })
+            vim.lsp.enable({ "lua_ls", "basedpyright", "ruff", "jdtls" })
 
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = Utils.augroup("LspConfig"),
@@ -79,6 +80,15 @@ return {
         opts = {
             formatters_by_ft = {
                 lua = { "stylua" },
+                python = { "ruff_format" },
+                javascript = { "prettier" },
+                typescript = { "prettier" },
+                javascriptreact = { "prettier" },
+                typescriptreact = { "prettier" },
+                json = { "prettier" },
+                css = { "prettier" },
+                html = { "prettier" },
+                java = { "google-java-format" },
             },
         },
     },

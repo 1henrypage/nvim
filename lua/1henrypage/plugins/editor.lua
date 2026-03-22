@@ -300,5 +300,17 @@ return {
 		end,
 	},
 
-	{ "folke/which-key.nvim", event = "VeryLazy", opts = {} },
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		opts = {
+			spec = {
+				{ "<leader>s", group = "search" },
+				{ "<leader>g", group = "goto/lsp" },
+				{ "<leader>w", group = "window" },
+				{ "<leader>c", group = "code" },
+				{ "<leader>h", group = "git" },
+			},
+		},
+	},
 }
