@@ -16,7 +16,6 @@ return {
         },
         config = function(_, opts)
             require("mason").setup(opts)
-            -- Run :MasonInstall stylua to enable lua formatting
         end,
     },
 
@@ -30,6 +29,18 @@ return {
                 "jdtls",
             },
             automatic_installation = false,
+        },
+    },
+
+    {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        dependencies = { "williamboman/mason.nvim" },
+        opts = {
+            ensure_installed = {
+                "stylua",
+                "prettier",
+                "google-java-format",
+            },
         },
     },
 
