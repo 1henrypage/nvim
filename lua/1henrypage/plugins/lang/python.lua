@@ -5,7 +5,7 @@ return {
     },
 
     {
-        "williamboman/mason-lspconfig.nvim",
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
         opts = { ensure_installed = { "basedpyright", "ruff" } },
     },
 

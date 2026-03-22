@@ -5,14 +5,10 @@ return {
     },
 
     {
-        "williamboman/mason-lspconfig.nvim",
-        opts = { ensure_installed = { "jdtls" } },
-    },
-
-    {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         opts = {
             ensure_installed = {
+                "jdtls",
                 "google-java-format",
                 "java-debug-adapter",
                 "java-test",
@@ -31,16 +27,30 @@ return {
 
     {
         "mfussenegger/nvim-jdtls",
-        ft = "java",
+        event = { "BufReadPost *.java", "BufEnter *.java" },
+        dependencies = { "hrsh7th/cmp-nvim-lsp" },
         config = function()
             local function setup_jdtls()
-                local mason_registry = require("mason-registry")
+                -- ensure treesitter highlighting immediately (before jdtls finishes loading)
+                local bufnr = vim.api.nvim_get_current_buf()
+                if not vim.treesitter.highlighter.active[bufnr] then
+                    vim.treesitter.start(bufnr, "java")
+                end
 
                 -- jdtls paths
-                local jdtls_pkg = mason_registry.get_package("jdtls")
-                local jdtls_path = jdtls_pkg:get_install_path()
+                local jdtls_path = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
+                if vim.fn.isdirectory(jdtls_path) == 0 then
+                    vim.notify("jdtls not installed — run :MasonInstall jdtls", vim.log.levels.WARN)
+                    return
+                end
+
                 local launcher = vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar")
                 local lombok = jdtls_path .. "/lombok.jar"
+
+                if launcher == "" then
+                    vim.notify("jdtls launcher jar not found in " .. jdtls_path, vim.log.levels.ERROR)
+                    return
+                end
 
                 local os_config
                 if vim.fn.has("mac") == 1 then
@@ -56,27 +66,22 @@ return {
                 local workspace_dir = vim.fn.expand("~/.cache/jdtls-workspace/") .. project_name
 
                 -- debug/test bundles
+                local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
                 local bundles = {}
 
-                if mason_registry.is_installed("java-debug-adapter") then
-                    local debug_pkg = mason_registry.get_package("java-debug-adapter")
-                    local debug_jar = vim.fn.glob(
-                        debug_pkg:get_install_path() .. "/extension/server/com.microsoft.java.debug.plugin-*.jar"
-                    )
-                    if debug_jar ~= "" then
-                        table.insert(bundles, debug_jar)
-                    end
+                local debug_jar = vim.fn.glob(
+                    mason_packages .. "/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"
+                )
+                if debug_jar ~= "" then
+                    table.insert(bundles, debug_jar)
                 end
 
-                if mason_registry.is_installed("java-test") then
-                    local test_pkg = mason_registry.get_package("java-test")
-                    local test_jars = vim.fn.glob(
-                        test_pkg:get_install_path() .. "/extension/server/*.jar",
-                        true,
-                        true
-                    )
-                    vim.list_extend(bundles, test_jars)
-                end
+                local test_jars = vim.fn.glob(
+                    mason_packages .. "/java-test/extension/server/*.jar",
+                    true,
+                    true
+                )
+                vim.list_extend(bundles, test_jars)
 
                 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
@@ -135,15 +140,19 @@ return {
                 require("jdtls").start_or_attach(config)
             end
 
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = "java",
+            vim.api.nvim_create_autocmd({ "BufReadPost", "BufEnter" }, {
+                pattern = "*.java",
                 callback = setup_jdtls,
             })
 
-            -- trigger immediately if already in a java buffer
-            if vim.bo.filetype == "java" then
-                setup_jdtls()
-            end
+            -- handle jdt:// URIs so go-to-definition works on dependency classes
+            vim.api.nvim_create_autocmd("BufReadCmd", {
+                pattern = "jdt://*",
+                callback = function(args)
+                    require("jdtls").open_jdt_link(args.match)
+                end,
+            })
+
         end,
     },
 }

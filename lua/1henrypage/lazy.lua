@@ -17,6 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     spec = {
         { import = "1henrypage.plugins" },
+        { import = "1henrypage.plugins.lang" },
     },
     defaults = {
         version = "*", -- latest stable version

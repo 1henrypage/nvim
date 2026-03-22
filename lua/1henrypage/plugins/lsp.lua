@@ -20,22 +20,12 @@ return {
     },
 
     {
-        "williamboman/mason-lspconfig.nvim",
-        opts_extend = { "ensure_installed" },
-        opts = {
-            ensure_installed = {
-                "lua_ls",
-            },
-            automatic_installation = false,
-        },
-    },
-
-    {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         dependencies = { "williamboman/mason.nvim" },
         opts_extend = { "ensure_installed" },
         opts = {
             ensure_installed = {
+                "lua-language-server",
                 "stylua",
             },
         },
@@ -47,7 +37,6 @@ return {
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         dependencies = {
             "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
         },
         config = function()
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
