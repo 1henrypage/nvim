@@ -21,7 +21,7 @@ local M = {
   },
   coolbeans = {
     vim = "",
-    nvim = ""
+    nvim = "",
   },
   mason = {
     pending = " ",
@@ -159,7 +159,7 @@ local M = {
       top_right = "🭾",
       bottom_right = "🭿",
       bottom_left = "🭼",
-    }
+    },
   },
   brain = {
     codeium = "󰘦 ",

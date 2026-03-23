@@ -1,17 +1,16 @@
-
 local Profile = require("1henrypage.profile")
 local Utils = require("1henrypage.utils")
 _G.Utils = Utils
 
 local M = {}
 setmetatable(M, {
-    __index = function(_,k)
-        local mod = require("1henrypage.extras." .. k )
-        return mod
-    end,
+  __index = function(_, k)
+    local mod = require("1henrypage.extras." .. k)
+    return mod
+  end,
 })
 
----@param mod "autocmds" | "options" | "keymaps" | "commands" 
+---@param mod "autocmds" | "options" | "keymaps" | "commands"
 M.load = function(mod)
   Utils.try(function()
     require("1henrypage.extras." .. mod)
@@ -51,4 +50,3 @@ function M.init()
 end
 
 return M
-

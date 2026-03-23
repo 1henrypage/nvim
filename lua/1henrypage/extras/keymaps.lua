@@ -1,6 +1,5 @@
-
-local map = function(mode,sequence,action)
-    vim.keymap.set(mode, sequence, action, {noremap = true, silent =true})
+local map = function(mode, sequence, action)
+  vim.keymap.set(mode, sequence, action, { noremap = true, silent = true })
 end
 
 --   normal_mode = "n",
@@ -17,9 +16,8 @@ map("v", ">", ">gv")
 -- keep default register intact for pasting stuff
 map("v", "p", '"_dP')
 
--- No highlight 
+-- No highlight
 map("n", ";", ":noh<CR>")
-
 
 -- move text
 map("n", "<A-S-j>", ":m .+1<CR>==") -- move line up(n)
@@ -34,31 +32,39 @@ map("n", "<leader>wv", ":vsplit<CR>")
 map("n", "<leader>wh", ":split<CR>")
 
 -- commenting (replaces mini.comment)
-vim.keymap.set({"n", "v"}, "<C-_>", "gcc", { remap = true })
+vim.keymap.set({ "n", "v" }, "<C-_>", "gcc", { remap = true })
 
 -- toggles
-map("n", "<leader>tw", function() vim.opt.wrap = not vim.opt.wrap:get() end)
-map("n", "<leader>tr", function() vim.opt.relativenumber = not vim.opt.relativenumber:get() end)
-map("n", "<leader>ts", function() vim.opt.spell = not vim.opt.spell:get() end)
-map("n", "<leader>tc", function() vim.opt.conceallevel = vim.o.conceallevel == 0 and 2 or 0 end)
+map("n", "<leader>tw", function()
+  vim.opt.wrap = not vim.opt.wrap:get()
+end)
+map("n", "<leader>tr", function()
+  vim.opt.relativenumber = not vim.opt.relativenumber:get()
+end)
+map("n", "<leader>ts", function()
+  vim.opt.spell = not vim.opt.spell:get()
+end)
+map("n", "<leader>tc", function()
+  vim.opt.conceallevel = vim.o.conceallevel == 0 and 2 or 0
+end)
 
 -- terminal toggle
 map("n", "<leader>t<Tab>", function()
-    local term_buf = vim.g._toggle_term_buf
-    if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
-        local wins = vim.fn.win_findbuf(term_buf)
-        if #wins > 0 then
-            vim.api.nvim_win_close(wins[1], true)
-            return
-        end
+  local term_buf = vim.g._toggle_term_buf
+  if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+    local wins = vim.fn.win_findbuf(term_buf)
+    if #wins > 0 then
+      vim.api.nvim_win_close(wins[1], true)
+      return
     end
-    vim.cmd("botright 15split")
-    if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
-        vim.api.nvim_win_set_buf(0, term_buf)
-    else
-        vim.cmd("terminal")
-        vim.g._toggle_term_buf = vim.api.nvim_get_current_buf()
-    end
+  end
+  vim.cmd("botright 15split")
+  if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+    vim.api.nvim_win_set_buf(0, term_buf)
+  else
+    vim.cmd("terminal")
+    vim.g._toggle_term_buf = vim.api.nvim_get_current_buf()
+  end
 end)
 vim.keymap.set("t", "<leader>t<Tab>", [[<C-\><C-n><leader>t<Tab>]], { remap = true })
 
