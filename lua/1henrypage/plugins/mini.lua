@@ -57,14 +57,7 @@ local notify_config = {
 
     -- Notifications about LSP progress
     lsp_progress = {
-        -- Whether to enable showing
-        enable = true,
-
-        -- Notification level
-        level = "ERROR",
-
-        -- Duration (in ms) of how long last message should be shown
-        duration_last = 3000,
+        enable = false,
     },
 
     -- Window options
@@ -143,6 +136,13 @@ return {
             require("mini.bufremove").setup({})
             require("mini.cursorword").setup({})
             require("mini.indentscope").setup(indent_scope_config)
+            require("mini.animate").setup({
+                cursor = { enable = true },
+                scroll = { enable = false },
+                resize = { enable = false },
+                open   = { enable = false },
+                close  = { enable = false },
+            })
             require("mini.hipatterns").setup({
                 highlighters = {
                     fixme     = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFix" },

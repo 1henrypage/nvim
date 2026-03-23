@@ -12,6 +12,7 @@ return {
                 "google-java-format",
                 "java-debug-adapter",
                 "java-test",
+                "vscode-spring-boot-tools",
             },
         },
     },
@@ -91,7 +92,7 @@ return {
                         "-Declipse.application=org.eclipse.jdt.ls.core.id1",
                         "-Dosgi.bundles.defaultStartLevel=4",
                         "-Declipse.product=org.eclipse.jdt.ls.core.product",
-                        "-Dlog.level=ALL",
+                        "-Dlog.level=ERROR",
                         "-Xmx2G",
                         "--add-modules=ALL-SYSTEM",
                         "--add-opens", "java.base/java.util=ALL-UNNAMED",
@@ -121,6 +122,17 @@ return {
                     on_attach = function(_, bufnr)
                         require("jdtls").setup_dap({ hotcodereplace = "auto" })
                         require("jdtls.dap").setup_dap_main_class_configs()
+
+                        -- Spring Boot LS: application.properties completions, bean navigation, Actuator live data
+                        local spring_ls = vim.fn.stdpath("data")
+                            .. "/mason/packages/vscode-spring-boot-tools/language-server.jar"
+                        if vim.fn.filereadable(spring_ls) == 1 then
+                            vim.lsp.start({
+                                name = "spring-boot-ls",
+                                cmd = { "java", "-jar", spring_ls },
+                                root_dir = vim.fs.root(0, { "pom.xml", "build.gradle", ".git" }),
+                            }, { bufnr = bufnr, reuse_client = true })
+                        end
 
                         local opts = { buffer = bufnr, noremap = true, silent = true }
                         vim.keymap.set("n", "<leader>co", require("jdtls").organize_imports, opts)

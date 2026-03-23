@@ -13,6 +13,10 @@ local M = {
   insert_cursorline = "#005f00",
   codeium       = "#09B6A2",
   copilot       = "#FEFFFF",
+  cursor        = "#a3aed2",   -- kitty cursor color
+  cursor_text   = "#1d2230",   -- kitty cursor text color
+  git_add       = "#00ff41",   -- neon green for gitsigns add
+  git_delete    = "#ff1a1a",   -- bright red for gitsigns delete
 }
 
 return M

@@ -19,6 +19,11 @@ return {
                         analysis = {
                             exclude = { "**/*.ipynb" },
                         },
+                        inlayHints = {
+                            callArgumentNames = "all",
+                            functionReturnTypes = true,
+                            variableTypes = true,
+                        },
                     },
                 },
             })
