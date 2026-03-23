@@ -34,6 +34,15 @@ return {
 				-- Mellow yellow indent guides
 				hl.NeoTreeIndentMarker = { fg = Colors.indent_marker }
 				hl.NeoTreeExpander = { fg = Colors.expander }
+				-- Mini.notify: dark bg, blue border
+				hl.MiniNotifyNormal = { bg = Colors.bg_deep, fg = c.fg }
+				hl.MiniNotifyBorder = { fg = Colors.blue }
+				hl.MiniNotifyTitle = { fg = Colors.blue, bold = true }
+				-- Mini.cursorword: blue underline
+				hl.MiniCursorword = { underline = true, sp = Colors.blue }
+				hl.MiniCursorwordCurrent = { underline = true, sp = Colors.blue }
+				-- Mini.indentscope: blue scope line
+				hl.MiniIndentscopeSymbol = { fg = Colors.blue }
 				end,
 		},
 		config = function(_, opts)

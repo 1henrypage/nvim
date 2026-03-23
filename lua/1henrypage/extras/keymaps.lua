@@ -43,7 +43,7 @@ map("n", "<leader>ts", function() vim.opt.spell = not vim.opt.spell:get() end)
 map("n", "<leader>tc", function() vim.opt.conceallevel = vim.o.conceallevel == 0 and 2 or 0 end)
 
 -- terminal toggle
-map("n", "<leader>tt", function()
+map("n", "<leader>t<Tab>", function()
     local term_buf = vim.g._toggle_term_buf
     if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
         local wins = vim.fn.win_findbuf(term_buf)
@@ -60,7 +60,7 @@ map("n", "<leader>tt", function()
         vim.g._toggle_term_buf = vim.api.nvim_get_current_buf()
     end
 end)
-vim.keymap.set("t", "<leader>tt", [[<C-\><C-n><leader>tt]], { remap = true })
+vim.keymap.set("t", "<leader>t<Tab>", [[<C-\><C-n><leader>t<Tab>]], { remap = true })
 
 -- terminal mode: window navigation and resize (passthrough to tmux.nvim)
 vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-h>]], { noremap = true, silent = true })

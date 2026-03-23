@@ -31,59 +31,27 @@ return {
 	},
 
 	{
-		"L3MON4D3/LuaSnip",
-		-- follow latest release.
-		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-		-- install jsregexp (optional!).
-		build = "make install_jsregexp",
-		dependencies = {
-			{
-				"saadparwaiz1/cmp_luasnip",
+		"saghen/blink.cmp",
+		version = "1.*",
+		dependencies = { "rafamadriz/friendly-snippets" },
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
+		opts = {
+			keymap = { preset = "enter" },
+			appearance = { nerd_font_variant = "mono" },
+			completion = {
+				documentation = { auto_show = true, auto_show_delay_ms = 500 },
+				ghost_text = { enabled = true },
+				menu = { border = "rounded" },
 			},
-			{
-				"rafamadriz/friendly-snippets",
+			signature = { enabled = true },
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
 			},
+			fuzzy = { implementation = "prefer_rust_with_warning" },
+			cmdline = { enabled = true },
 		},
-	},
-
-	-- Nvim CMP
-	{
-		"hrsh7th/nvim-cmp",
-		dependencies = {
-			{ "hrsh7th/cmp-nvim-lsp" },
-		},
-		config = function()
-			local cmp = require("cmp")
-
-			require("luasnip.loaders.from_vscode").lazy_load()
-			require("luasnip.loaders.from_snipmate").lazy_load()
-
-			cmp.setup({
-				snippet = {
-					-- REQUIRED - you must specify a snippet engine
-					expand = function(args)
-						require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-					end,
-				},
-				window = {
-					completion = cmp.config.window.bordered(),
-					documentation = cmp.config.window.bordered(),
-				},
-				mapping = cmp.mapping.preset.insert({
-					["<C-b>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
-					["<C-Space>"] = cmp.mapping.complete(),
-					["<C-e>"] = cmp.mapping.abort(),
-					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-				}),
-				sources = cmp.config.sources({
-					{ name = "nvim_lsp" },
-					{ name = "luasnip" }, -- For luasnip users.
-				}, {
-					{ name = "buffer" },
-				}),
-			})
-		end,
+		opts_extend = { "sources.default" },
 	},
     {
 
@@ -110,12 +78,24 @@ return {
 			spec = {
 				{ "<leader>s", group = "search" },
 				{ "<leader>g", group = "goto/lsp" },
+				{ "<leader>gw", group = "workspace" },
 				{ "<leader>t", group = "toggle" },
+				{ "<leader>tt", desc = "neotree" },
+				{ "<leader>t<Tab>", desc = "terminal" },
+				{ "<leader>tw", desc = "wrap" },
+				{ "<leader>tr", desc = "relative numbers" },
+				{ "<leader>ts", desc = "spell" },
+				{ "<leader>tc", desc = "conceal" },
+				{ "<leader>th", desc = "inlay hints" },
 				{ "<leader>w", group = "window" },
 				{ "<leader>c", group = "code" },
 				{ "<leader>h", group = "git" },
 				{ "<leader>d", group = "debug" },
 				{ "<leader>x", group = "diagnostics" },
+				{ "<leader>b", group = "buffer" },
+				{ "<leader>.", group = "utilities" },
+				{ "<leader>r", desc = "rename" },
+				{ "<leader>J", desc = "split/join" },
 			},
 		},
 	},

@@ -28,7 +28,7 @@ return {
     {
         "mfussenegger/nvim-jdtls",
         event = { "BufReadPost *.java", "BufEnter *.java" },
-        dependencies = { "hrsh7th/cmp-nvim-lsp" },
+        dependencies = { "saghen/blink.cmp" },
         config = function()
             local function setup_jdtls()
                 -- ensure treesitter highlighting immediately (before jdtls finishes loading)
@@ -83,7 +83,7 @@ return {
                 )
                 vim.list_extend(bundles, test_jars)
 
-                local capabilities = require("cmp_nvim_lsp").default_capabilities()
+                local capabilities = require("blink.cmp").get_lsp_capabilities()
 
                 local config = {
                     cmd = {

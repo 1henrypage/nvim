@@ -70,7 +70,7 @@ local notify_config = {
     -- Window options
     window = {
         -- Floating window config
-        config = {},
+        config = { border = "rounded" },
 
         -- Maximum window width as share (between 0 and 1) of available columns
         max_width_share = 0.382,
@@ -143,6 +143,15 @@ return {
             require("mini.bufremove").setup({})
             require("mini.cursorword").setup({})
             require("mini.indentscope").setup(indent_scope_config)
+            require("mini.hipatterns").setup({
+                highlighters = {
+                    fixme     = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFix" },
+                    hack      = { pattern = "%f[%w]()HACK()%f[%W]",  group = "MiniHipatternsHack" },
+                    todo      = { pattern = "%f[%w]()TODO()%f[%W]",  group = "MiniHipatternsTodo" },
+                    note      = { pattern = "%f[%w]()NOTE()%f[%W]",  group = "MiniHipatternsNote" },
+                    hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
+                },
+            })
 
             -- keybinds
             vim.keymap.set('n', '<leader>bd', function()

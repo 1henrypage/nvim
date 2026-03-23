@@ -1,0 +1,548 @@
+{
+  "protected": {
+    "prefix": "po",
+    "body": ["protected ${0}"],
+    "description": "protected"
+  },
+  "public": {
+    "prefix": "pu",
+    "body": ["public ${0}"],
+    "description": "public"
+  },
+  "private": {
+    "prefix": "pr",
+    "body": ["private ${0}"],
+    "description": "private"
+  },
+  "@Before": {
+    "prefix": "before",
+    "body": ["@Before", "static void ${1:intercept}(${2:args}) { ${0} }"],
+    "description": "@Before annotation"
+  },
+  "@ManyToMany": {
+    "prefix": "mm",
+    "body": ["@ManyToMany", "${0}"],
+    "description": "@ManyToMany annotation"
+  },
+  "@ManyToOne": {
+    "prefix": "mo",
+    "body": ["@ManyToOne", "${0}"],
+    "description": "@ManyToOne annotation"
+  },
+  "@OneToMany": {
+    "prefix": "om",
+    "body": ["@OneToMany${1:(cascade=CascadeType.ALL)}", "${0}"],
+    "description": "@OneToMany annotation"
+  },
+  "@OneToOne": {
+    "prefix": "oo",
+    "body": ["@OneToOne", "${1}"],
+    "description": "@OneToOne annotation"
+  },
+  "import": {
+    "prefix": "im",
+    "body": ["import ${0}"],
+    "description": "import"
+  },
+  "java.beans": {
+    "prefix": "j.b",
+    "body": ["java.beans."],
+    "description": "java.beans package"
+  },
+  "java.io": {
+    "prefix": "j.i",
+    "body": ["java.io."],
+    "description": "java.io package"
+  },
+  "java.math": {
+    "prefix": "j.m",
+    "body": ["java.math."],
+    "description": "java.math package"
+  },
+  "java.net": {
+    "prefix": "j.n",
+    "body": ["java.net."],
+    "description": "java.net package"
+  },
+  "java.util": {
+    "prefix": "j.u",
+    "body": ["java.util."],
+    "description": "java.util package"
+  },
+  "class": {
+    "prefix": "cl",
+    "body": ["class ${1:ClassName} ${0}"],
+    "description": "class declaration"
+  },
+  "public class": {
+    "prefix": "pcl",
+    "body": ["public class ${1:ClassName} ${0}"],
+    "description": "public class declaration"
+  },
+  "interface": {
+    "prefix": "in",
+    "body": ["interface ${1:InterfaceName} ${2:extends Parent}"],
+    "description": "interface declaration"
+  },
+  "test class": {
+    "prefix": "tc",
+    "body": ["public class ${1:TestClassName} extends ${0:TestCase}"],
+    "description": "test class declaration"
+  },
+  "extends": {
+    "prefix": "ext",
+    "body": ["extends ${0}"],
+    "description": "extends"
+  },
+  "implements": {
+    "prefix": "imp",
+    "body": ["implements ${0}"],
+    "description": "implements"
+  },
+  "block comment": {
+    "prefix": "/*",
+    "body": ["/*", " * ${0}", " */"],
+    "description": "block comment"
+  },
+  "constant": {
+    "prefix": "co",
+    "body": ["static public final ${1:String} ${2:var} = ${3};"],
+    "description": "static final constant"
+  },
+  "string constant": {
+    "prefix": "cos",
+    "body": ["static public final String ${1:var} = \"${2}\";"],
+    "description": "static final String constant"
+  },
+  "case": {
+    "prefix": "case",
+    "body": ["case ${1}:", "\t${0}"],
+    "description": "case statement"
+  },
+  "default": {
+    "prefix": "def",
+    "body": ["default:", "\t${0}"],
+    "description": "default case"
+  },
+  "else": {
+    "prefix": "el",
+    "body": ["else"],
+    "description": "else"
+  },
+  "else if": {
+    "prefix": "eif",
+    "body": ["else if (${1}) ${0}"],
+    "description": "else if"
+  },
+  "if": {
+    "prefix": "if",
+    "body": ["if (${1}) ${0}"],
+    "description": "if statement"
+  },
+  "switch": {
+    "prefix": "sw",
+    "body": ["switch (${1}) {", "\t${0}", "}"],
+    "description": "switch statement"
+  },
+  "method": {
+    "prefix": "m",
+    "body": ["${1:void} ${2:method}(${3}) ${4:throws }"],
+    "description": "method declaration"
+  },
+  "variable": {
+    "prefix": "v",
+    "body": ["${1:String} ${2:var}${3: = null}${4};"],
+    "description": "variable declaration"
+  },
+  "ArrayList": {
+    "prefix": "d.al",
+    "body": ["List<${1:Object}> ${2:list} = new ArrayList<$1>();${0}"],
+    "description": "ArrayList declaration"
+  },
+  "HashMap": {
+    "prefix": "d.hm",
+    "body": ["Map<${1:Object}, ${2:Object}> ${3:map} = new HashMap<$1, $2>();${0}"],
+    "description": "HashMap declaration"
+  },
+  "HashSet": {
+    "prefix": "d.hs",
+    "body": ["Set<${1:Object}> ${2:set} = new HashSet<$1>();${0}"],
+    "description": "HashSet declaration"
+  },
+  "Stack": {
+    "prefix": "d.st",
+    "body": ["Stack<${1:Object}> ${2:stack} = new Stack<$1>();${0}"],
+    "description": "Stack declaration"
+  },
+  "singleton": {
+    "prefix": "singlet",
+    "body": [
+      "private static class Holder {",
+      "\tprivate static final ${1:ClassName} INSTANCE = new $1();",
+      "}",
+      "",
+      "private $1() { }",
+      "",
+      "public static $1 getInstance() {",
+      "\treturn Holder.INSTANCE;",
+      "}"
+    ],
+    "description": "singleton pattern"
+  },
+  "abstract": {
+    "prefix": "ab",
+    "body": ["abstract ${0}"],
+    "description": "abstract"
+  },
+  "final": {
+    "prefix": "fi",
+    "body": ["final ${0}"],
+    "description": "final"
+  },
+  "static": {
+    "prefix": "st",
+    "body": ["static ${0}"],
+    "description": "static"
+  },
+  "synchronized": {
+    "prefix": "sy",
+    "body": ["synchronized ${0}"],
+    "description": "synchronized"
+  },
+  "System.err.print": {
+    "prefix": "err",
+    "body": ["System.err.print(\"${0:Message}\");"],
+    "description": "System.err.print"
+  },
+  "System.err.printf": {
+    "prefix": "errf",
+    "body": ["System.err.printf(\"${1:Message}\", ${0:exception});"],
+    "description": "System.err.printf"
+  },
+  "System.err.println": {
+    "prefix": "errln",
+    "body": ["System.err.println(\"${0:Message}\");"],
+    "description": "System.err.println"
+  },
+  "assert": {
+    "prefix": "as",
+    "body": ["assert ${1:test} : \"${2:Failure message}\";"],
+    "description": "assert"
+  },
+  "assertEquals": {
+    "prefix": "ae",
+    "body": ["assertEquals(\"${1:Failure message}\", ${2:expected}, ${3:actual});"],
+    "description": "assertEquals"
+  },
+  "assertArrayEquals": {
+    "prefix": "aae",
+    "body": ["assertArrayEquals(\"${1:Failure message}\", ${2:expecteds}, ${3:actuals});"],
+    "description": "assertArrayEquals"
+  },
+  "assertFalse": {
+    "prefix": "af",
+    "body": ["assertFalse(\"${1:Failure message}\", $2);"],
+    "description": "assertFalse"
+  },
+  "assertTrue": {
+    "prefix": "at",
+    "body": ["assertTrue(\"${1:Failure message}\", $2);"],
+    "description": "assertTrue"
+  },
+  "assertNull": {
+    "prefix": "an",
+    "body": ["assertNull(\"${1:Failure message}\", ${2:object});"],
+    "description": "assertNull"
+  },
+  "assertNotNull": {
+    "prefix": "ann",
+    "body": ["assertNotNull(\"${1:Failure message}\", ${2:object});"],
+    "description": "assertNotNull"
+  },
+  "assertSame": {
+    "prefix": "ass",
+    "body": ["assertSame(\"${1:Failure message}\", ${2:expected}, ${3:actual});"],
+    "description": "assertSame"
+  },
+  "assertNotSame": {
+    "prefix": "asns",
+    "body": ["assertNotSame(\"${1:Failure message}\", ${2:expected}, ${3:actual});"],
+    "description": "assertNotSame"
+  },
+  "fail": {
+    "prefix": "fa",
+    "body": ["fail(\"${1:Failure message}\");"],
+    "description": "fail"
+  },
+  "catch": {
+    "prefix": "ca",
+    "body": ["catch(${1:Exception} ${2:e}) ${0}"],
+    "description": "catch block"
+  },
+  "throw": {
+    "prefix": "thr",
+    "body": ["throw ${0}"],
+    "description": "throw"
+  },
+  "throws": {
+    "prefix": "ths",
+    "body": ["throws ${0}"],
+    "description": "throws"
+  },
+  "try/catch": {
+    "prefix": "try",
+    "body": [
+      "try {",
+      "\t${0}",
+      "} catch(${1:Exception} ${2:e}) {",
+      "}"
+    ],
+    "description": "try/catch block"
+  },
+  "try/catch/finally": {
+    "prefix": "tryf",
+    "body": [
+      "try {",
+      "\t${0}",
+      "} catch(${1:Exception} ${2:e}) {",
+      "} finally {",
+      "}"
+    ],
+    "description": "try/catch/finally block"
+  },
+  "findAll": {
+    "prefix": "findall",
+    "body": ["List<${1:listName}> ${2:items} = $1.findAll();"],
+    "description": "findAll"
+  },
+  "findById": {
+    "prefix": "findbyid",
+    "body": ["${1:var} ${2:item} = $1.findById(${3});"],
+    "description": "findById"
+  },
+  "javadoc": {
+    "prefix": "/**",
+    "body": ["/**", " * ${0}", " */"],
+    "description": "javadoc comment"
+  },
+  "@author": {
+    "prefix": "@au",
+    "body": ["@author ${0:name}"],
+    "description": "@author tag"
+  },
+  "@brief": {
+    "prefix": "@br",
+    "body": ["@brief ${0:Description}"],
+    "description": "@brief tag"
+  },
+  "@file": {
+    "prefix": "@fi",
+    "body": ["@file ${0:FileName}.java"],
+    "description": "@file tag"
+  },
+  "@param": {
+    "prefix": "@pa",
+    "body": ["@param ${0:param}"],
+    "description": "@param tag"
+  },
+  "@return": {
+    "prefix": "@re",
+    "body": ["@return ${0:param}"],
+    "description": "@return tag"
+  },
+  "Logger.debug": {
+    "prefix": "debug",
+    "body": ["Logger.debug(${1:param});"],
+    "description": "Logger.debug"
+  },
+  "Logger.error": {
+    "prefix": "error",
+    "body": ["Logger.error(${1:param});"],
+    "description": "Logger.error"
+  },
+  "Logger.info": {
+    "prefix": "info",
+    "body": ["Logger.info(${1:param});"],
+    "description": "Logger.info"
+  },
+  "Logger.warn": {
+    "prefix": "warn",
+    "body": ["Logger.warn(${1:param});"],
+    "description": "Logger.warn"
+  },
+  "enhanced for": {
+    "prefix": "enfor",
+    "body": ["for (${1} : ${2}) ${0}"],
+    "description": "enhanced for loop"
+  },
+  "for": {
+    "prefix": "for",
+    "body": ["for (${1}; ${2}; ${3}) ${0}"],
+    "description": "for loop"
+  },
+  "while": {
+    "prefix": "wh",
+    "body": ["while (${1:true}) ${0}"],
+    "description": "while loop"
+  },
+  "while true": {
+    "prefix": "wht",
+    "body": ["while (true) ${0}"],
+    "description": "while true loop"
+  },
+  "main method (psvm)": {
+    "prefix": "psvm",
+    "body": [
+      "public static void main (String[] args) {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "main method"
+  },
+  "main method": {
+    "prefix": "main",
+    "body": [
+      "public static void main (String[] args) {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "main method"
+  },
+  "System.out.println": {
+    "prefix": "sout",
+    "body": ["System.out.println(${0});"],
+    "description": "System.out.println"
+  },
+  "System.err.println (serr)": {
+    "prefix": "serr",
+    "body": ["System.err.println(${0});"],
+    "description": "System.err.println"
+  },
+  "System.out.print": {
+    "prefix": "print",
+    "body": ["System.out.print(\"${0:Message}\");"],
+    "description": "System.out.print"
+  },
+  "System.out.printf": {
+    "prefix": "printf",
+    "body": ["System.out.printf(\"${1:Message}\", ${0:args});"],
+    "description": "System.out.printf"
+  },
+  "System.out.println (println)": {
+    "prefix": "println",
+    "body": ["System.out.println(${0});"],
+    "description": "System.out.println"
+  },
+  "println arrays": {
+    "prefix": "printlna",
+    "body": ["System.out.println(Arrays.toString(${0}));"],
+    "description": "println Arrays.toString"
+  },
+  "render": {
+    "prefix": "ren",
+    "body": ["render(${1:param});"],
+    "description": "render"
+  },
+  "renderArgs": {
+    "prefix": "rena",
+    "body": ["renderArgs.put(\"${1}\", ${2});"],
+    "description": "renderArgs.put"
+  },
+  "renderBinary": {
+    "prefix": "renb",
+    "body": ["renderBinary(${1:param});"],
+    "description": "renderBinary"
+  },
+  "renderJSON": {
+    "prefix": "renj",
+    "body": ["renderJSON(${1:param});"],
+    "description": "renderJSON"
+  },
+  "renderXml": {
+    "prefix": "renx",
+    "body": ["renderXml(${1:param});"],
+    "description": "renderXml"
+  },
+  "setter": {
+    "prefix": "set",
+    "body": [
+      "${1:public} void set${2:FieldName}(${3:String} ${4:fieldName}) {",
+      "\tthis.$4 = $4;",
+      "}"
+    ],
+    "description": "setter method"
+  },
+  "getter": {
+    "prefix": "get",
+    "body": [
+      "${1:public} ${2:String} get${3:FieldName}() {",
+      "\treturn this.${0:fieldName};",
+      "}"
+    ],
+    "description": "getter method"
+  },
+  "return": {
+    "prefix": "re",
+    "body": ["return ${0}"],
+    "description": "return"
+  },
+  "break": {
+    "prefix": "br",
+    "body": ["break;"],
+    "description": "break"
+  },
+  "test method (no annotation)": {
+    "prefix": "t",
+    "body": [
+      "public void test${1:Name}() throws Exception {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "test method without annotation"
+  },
+  "test method": {
+    "prefix": "test",
+    "body": [
+      "@Test",
+      "public void test${1:Name}() throws Exception {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "test method with @Test annotation"
+  },
+  "Scanner": {
+    "prefix": "Sc",
+    "body": ["Scanner"],
+    "description": "Scanner"
+  },
+  "action method": {
+    "prefix": "action",
+    "body": ["public static void ${1:index}(${2:args}) { ${0} }"],
+    "description": "Play framework action method"
+  },
+  "notFound": {
+    "prefix": "rnf",
+    "body": ["notFound(${1:param});"],
+    "description": "notFound"
+  },
+  "notFoundIfNull": {
+    "prefix": "rnfin",
+    "body": ["notFoundIfNull(${1:param});"],
+    "description": "notFoundIfNull"
+  },
+  "redirect": {
+    "prefix": "rr",
+    "body": ["redirect(${1:param});"],
+    "description": "redirect"
+  },
+  "unauthorized": {
+    "prefix": "ru",
+    "body": ["unauthorized(${1:param});"],
+    "description": "unauthorized"
+  },
+  "unless": {
+    "prefix": "unless",
+    "body": ["(unless=${1:param});"],
+    "description": "unless"
+  }
+}
