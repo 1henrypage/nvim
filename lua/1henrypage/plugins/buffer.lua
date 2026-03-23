@@ -1,5 +1,6 @@
 local Profile = require("1henrypage.profile")
 local Icons = require("1henrypage.extras").icons
+local Colors = require("1henrypage.extras").colors
 
 return {
     {
@@ -46,49 +47,33 @@ return {
                         },
                         items = {
                             require('bufferline.groups').builtin.pinned:with({icon = Icons.bufferline.pinned .. " "})
-                            -- {
-                            --     name = "Tests",
-                            --     highlight = { underline = true, sp = "blue" }, -- Optional
-                            --     priority = 2,
-                            --     icon = " ",
-                            --     matcher = function(buf) -- Mandatory
-                            --         return buf.filename and (buf.filename:match("%Test") or buf.filename:match("%Tests"))
-                            --     end,
-                            -- },
-                            -- {
-                            --     name = "Docs",
-                            --     highlight = { undercurl = true, sp = "green" },
-                            --     matcher = function(buf)
-                            --         return buf.filename and (buf.filename:match("%.md") or buf.filename:match("%.txt"))
-                            --     end,
-                            -- },
                         },
                     },
                 },
                 highlights = {
-                    fill                   = { bg = "#13141e" },
+                    fill                   = { bg = Colors.bg_deep },
 
-                    -- Inactive tabs: midpoint between active (#24283b) and neo-tree (#13141e)
-                    background             = { bg = "#1b1e2c", fg = "#565f89" },
-                    buffer_visible         = { bg = "#1b1e2c", fg = "#737aa2" },
+                    -- Inactive tabs: midpoint between bg_active and bg_deep
+                    background             = { bg = Colors.bg_inactive, fg = Colors.fg_muted },
+                    buffer_visible         = { bg = Colors.bg_inactive, fg = Colors.fg_visible },
 
                     -- Selected tab: matches editor bg
-                    buffer_selected        = { bg = "#24283b", fg = "#c0caf5", bold = true },
+                    buffer_selected        = { bg = Colors.bg_active, fg = Colors.fg, bold = true },
 
                     -- Slopes: inactive uses inactive tab color, selected uses active tab color
-                    separator              = { fg = "#13141e", bg = "#1b1e2c" },
-                    separator_visible      = { fg = "#13141e", bg = "#1b1e2c" },
-                    separator_selected     = { fg = "#13141e", bg = "#24283b" },
+                    separator              = { fg = Colors.bg_deep, bg = Colors.bg_inactive },
+                    separator_visible      = { fg = Colors.bg_deep, bg = Colors.bg_inactive },
+                    separator_selected     = { fg = Colors.bg_deep, bg = Colors.bg_active },
 
                     -- Close buttons: bg matches parent tab
-                    close_button           = { fg = "#565f89", bg = "#1b1e2c" },
-                    close_button_visible   = { fg = "#565f89", bg = "#1b1e2c" },
-                    close_button_selected  = { fg = "#f7768e", bg = "#24283b" },
+                    close_button           = { fg = Colors.fg_muted, bg = Colors.bg_inactive },
+                    close_button_visible   = { fg = Colors.fg_muted, bg = Colors.bg_inactive },
+                    close_button_selected  = { fg = Colors.red, bg = Colors.bg_active },
 
                     -- Modified indicator: bg matches parent tab
-                    modified               = { fg = "#7aa2f7", bg = "#1b1e2c" },
-                    modified_visible       = { fg = "#7aa2f7", bg = "#1b1e2c" },
-                    modified_selected      = { fg = "#7aa2f7", bg = "#24283b" },
+                    modified               = { fg = Colors.blue, bg = Colors.bg_inactive },
+                    modified_visible       = { fg = Colors.blue, bg = Colors.bg_inactive },
+                    modified_selected      = { fg = Colors.blue, bg = Colors.bg_active },
                 },
             })
 

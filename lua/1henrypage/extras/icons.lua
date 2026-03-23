@@ -167,10 +167,12 @@ local M = {
   },
 }
 
+local Colors = require("1henrypage.extras").colors
+
 M.colors = {
   brain = {
-    codeium = "#09B6A2",
-    copilot = "#FEFFFF",
+    codeium = Colors.codeium,
+    copilot = Colors.copilot,
   },
 }
 

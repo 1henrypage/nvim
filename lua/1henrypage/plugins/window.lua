@@ -14,9 +14,6 @@ return {
                 }
             },
         },
-        config = function(_, opts)
-            require("window-picker").setup(opts)
-        end,
         keys = {
             {
                 '<leader>ww',

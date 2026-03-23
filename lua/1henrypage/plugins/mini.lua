@@ -138,10 +138,8 @@ return {
             require("mini.pairs").setup({})
             require("mini.notify").setup(notify_config)
             require("mini.bracketed").setup({})
-            require("mini.starter").setup({})
             require("mini.splitjoin").setup(split_join_config)
             require("mini.surround").setup({})
-            -- require("mini.statusline").setup({}) # don't use this it's shit
             require("mini.bufremove").setup({})
             require("mini.cursorword").setup({})
             require("mini.indentscope").setup(indent_scope_config)
