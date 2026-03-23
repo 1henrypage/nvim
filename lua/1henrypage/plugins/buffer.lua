@@ -10,13 +10,12 @@ return {
                 options = {
                     -- Buffer Icons config
                     modified_icon = Icons.git.modified,
-                    close_icon = Icons.diagnostics.error,
+                    close_icon = "󰅖",
                     left_trunc_marker = Icons.borders.thin.left,
                     right_trunc_marker = Icons.borders.thin.right,
 
                     mode = "buffers",
                     themable = true,
-                    numbers = "buffer_id",
                     diagnostics = "nvim_lsp",
                     diagnostics_update_on_event = true,
                     offsets = {
@@ -29,8 +28,7 @@ return {
                     },
                     color_icons = true,
                     show_buffer_icons = true,
-                    separator_style = "thin",
-                    enforce_regular_tabs = true,
+                    separator_style = "slant",
                     always_show_bufferline = true,
                     sort_by = function(buffer_a, buffer_b)
                         local modified_a = vim.fn.getftime(buffer_a.path)
@@ -40,7 +38,7 @@ return {
                     hover = {
                         enabled = true,
                         delay = 100,
-                        reveal = { "close" },
+                        reveal = {},
                     },
                     groups = {
                         options = {
@@ -66,6 +64,31 @@ return {
                             -- },
                         },
                     },
+                },
+                highlights = {
+                    fill                   = { bg = "#13141e" },
+
+                    -- Inactive tabs: midpoint between active (#24283b) and neo-tree (#13141e)
+                    background             = { bg = "#1b1e2c", fg = "#565f89" },
+                    buffer_visible         = { bg = "#1b1e2c", fg = "#737aa2" },
+
+                    -- Selected tab: matches editor bg
+                    buffer_selected        = { bg = "#24283b", fg = "#c0caf5", bold = true },
+
+                    -- Slopes: inactive uses inactive tab color, selected uses active tab color
+                    separator              = { fg = "#13141e", bg = "#1b1e2c" },
+                    separator_visible      = { fg = "#13141e", bg = "#1b1e2c" },
+                    separator_selected     = { fg = "#13141e", bg = "#24283b" },
+
+                    -- Close buttons: bg matches parent tab
+                    close_button           = { fg = "#565f89", bg = "#1b1e2c" },
+                    close_button_visible   = { fg = "#565f89", bg = "#1b1e2c" },
+                    close_button_selected  = { fg = "#f7768e", bg = "#24283b" },
+
+                    -- Modified indicator: bg matches parent tab
+                    modified               = { fg = "#7aa2f7", bg = "#1b1e2c" },
+                    modified_visible       = { fg = "#7aa2f7", bg = "#1b1e2c" },
+                    modified_selected      = { fg = "#7aa2f7", bg = "#24283b" },
                 },
             })
 
