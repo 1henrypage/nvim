@@ -13,6 +13,15 @@ return {
         "neovim/nvim-lspconfig",
         init = function()
             vim.lsp.enable({ "basedpyright", "ruff" })
+            vim.lsp.config("basedpyright", {
+                settings = {
+                    basedpyright = {
+                        analysis = {
+                            exclude = { "**/*.ipynb" },
+                        },
+                    },
+                },
+            })
         end,
     },
 
