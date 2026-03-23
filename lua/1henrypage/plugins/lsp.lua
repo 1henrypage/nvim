@@ -50,21 +50,27 @@ return {
                     -- See `:help vim.lsp.*` for documentation on any of the below functions
                     local opts = { buffer = ev.buf, noremap = true, silent = true }
                     vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts)
-                    vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)
+                    vim.keymap.set("n", "<leader>gd", "<cmd>Trouble lsp_definitions<cr>", opts)
                     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-                    vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, opts)
+                    vim.keymap.set("n", "<leader>gi", "<cmd>Trouble lsp_implementations<cr>", opts)
                     vim.keymap.set("n", "<leader>gP", vim.lsp.buf.signature_help, opts)
                     vim.keymap.set("n", "<leader>gwa", vim.lsp.buf.add_workspace_folder, opts)
                     vim.keymap.set("n", "<leader>gwr", vim.lsp.buf.remove_workspace_folder, opts)
                     vim.keymap.set("n", "<leader>gwl", function()
                         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                     end, opts)
-                    vim.keymap.set("n", "<leader>gtd", vim.lsp.buf.type_definition, opts)
+                    vim.keymap.set("n", "<leader>gtd", "<cmd>Trouble lsp_type_definitions<cr>", opts)
                     vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
                     vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-                    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+                    vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>", opts)
                     vim.keymap.set("n", "<leader>gf", function()
                         require("conform").format({ async = true })
+                    end, opts)
+                    vim.keymap.set("n", "<leader>th", function()
+                        vim.lsp.inlay_hint.enable(
+                            not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }),
+                            { bufnr = ev.buf }
+                        )
                     end, opts)
                 end,
             })

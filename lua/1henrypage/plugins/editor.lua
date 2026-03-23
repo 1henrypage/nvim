@@ -110,10 +110,12 @@ return {
 			spec = {
 				{ "<leader>s", group = "search" },
 				{ "<leader>g", group = "goto/lsp" },
+				{ "<leader>t", group = "toggle" },
 				{ "<leader>w", group = "window" },
 				{ "<leader>c", group = "code" },
 				{ "<leader>h", group = "git" },
 				{ "<leader>d", group = "debug" },
+				{ "<leader>x", group = "diagnostics" },
 			},
 		},
 	},

@@ -96,6 +96,15 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
     end,
 })
 
+-- Auto-create parent directories when saving a file
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = Utils.augroup("auto_create_dir"),
+    callback = function(event)
+        local file = vim.uv.fs_realpath(event.match) or event.match
+        vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+    end,
+})
+
 -- funny cursor business thing
 local insert_cursorline_group = Utils.augroup("insert_cursorline")
 vim.api.nvim_create_autocmd("InsertEnter", {

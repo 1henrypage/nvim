@@ -19,6 +19,16 @@ return {
                     themable = true,
                     diagnostics = "nvim_lsp",
                     diagnostics_update_on_event = true,
+                    diagnostics_indicator = function(count, level, diagnostics_dict, context)
+                        local parts = {}
+                        if diagnostics_dict.error then
+                            table.insert(parts, Icons.diagnostics.error .. " " .. diagnostics_dict.error)
+                        end
+                        if diagnostics_dict.warning then
+                            table.insert(parts, Icons.diagnostics.warn .. " " .. diagnostics_dict.warning)
+                        end
+                        return table.concat(parts, " ")
+                    end,
                     offsets = {
                         {
                             filetype = "neo-tree",
