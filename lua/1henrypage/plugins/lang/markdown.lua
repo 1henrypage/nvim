@@ -14,4 +14,14 @@ return {
       vim.keymap.set("n", "<leader>tm", "<cmd>RenderMarkdown toggle<CR>", { desc = "Toggle Markdown Render" })
     end,
   },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = { ensure_installed = { "marksman" } },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    init = function()
+      vim.lsp.enable({ "marksman" })
+    end,
+  },
 }
