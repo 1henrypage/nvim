@@ -42,3 +42,4 @@ snippets/               -- snipmate-format snippet files
 - **Plugin files:** One file per plugin or logical group. Don't consolidate into monolithic files.
 - **Theme:** tokyonight storm with transparent background. Sidebar/bufferline colors are custom extensions of the palette defined in `extras/colors.lua`.
 - **Snippets:** Both vscode-format (via `from_vscode`) and snipmate-format (via `from_snipmate`) loaders are active.
+- **LSP init/config ordering:** `vim.lsp.enable()` and `vim.lsp.config()` (pure nvim 0.11 API, no plugin required) go in `init` in lang files. Anything calling `require("blink.cmp")` must go in `config` with `"saghen/blink.cmp"` as a dependency. The main `nvim-lspconfig` spec in `lsp.lua` must have no `event` lazy-trigger (loads at startup) and list `blink.cmp` as a dependency, so capabilities and the `LspAttach` autocmd are registered before any `FileType` event fires (e.g. when opening a file from the dashboard).
