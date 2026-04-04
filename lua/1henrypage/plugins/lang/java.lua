@@ -102,7 +102,7 @@ return {
             "-data",
             workspace_dir,
           },
-          root_dir = vim.fs.root(0, { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }),
+          root_dir = vim.fs.root(0, { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle", "build.gradle.kts" }),
           settings = {
             java = {
               eclipse = { downloadSources = true },
@@ -113,6 +113,12 @@ return {
               references = { includeDecompiledSources = true },
               inlayHints = { parameterNames = { enabled = "all" } },
               signatureHelp = { enabled = true },
+              import = {
+                gradle = {
+                  enabled = true,
+                  wrapper = { enabled = true },
+                },
+              },
             },
           },
           init_options = {
