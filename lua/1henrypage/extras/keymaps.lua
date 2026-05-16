@@ -28,8 +28,8 @@ map("i", "<A-S-j>", "<ESC>:m .+1<CR>==gi")
 map("i", "<A-S-k>", "<ESC>:m .-2<CR>==gi")
 
 -- split window
-map("n", "<leader>wv", ":vsplit<CR>")
-map("n", "<leader>wh", ":split<CR>")
+vim.keymap.set("n", "<leader>wv", ":vsplit<CR>", { noremap = true, silent = true, desc = "vertical split" })
+vim.keymap.set("n", "<leader>wh", ":split<CR>", { noremap = true, silent = true, desc = "horizontal split" })
 
 -- commenting (replaces mini.comment)
 vim.keymap.set({ "n", "v" }, "<C-_>", "gcc", { remap = true })

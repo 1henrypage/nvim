@@ -47,28 +47,29 @@ return {
       vim.api.nvim_create_autocmd("LspAttach", {
         group = Utils.augroup("LspConfig"),
         callback = function(ev)
-          -- See `:help vim.lsp.*` for documentation on any of the below functions
-          local opts = { buffer = ev.buf, noremap = true, silent = true }
-          vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts)
-          vim.keymap.set("n", "<leader>gd", "<cmd>Trouble lsp_definitions<cr>", opts)
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-          vim.keymap.set("n", "<leader>gi", "<cmd>Trouble lsp_implementations<cr>", opts)
-          vim.keymap.set("n", "<leader>gP", vim.lsp.buf.signature_help, opts)
-          vim.keymap.set("n", "<leader>gwa", vim.lsp.buf.add_workspace_folder, opts)
-          vim.keymap.set("n", "<leader>gwr", vim.lsp.buf.remove_workspace_folder, opts)
+          local function opts(desc)
+            return { buffer = ev.buf, noremap = true, silent = true, desc = desc }
+          end
+          vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts("declaration"))
+          vim.keymap.set("n", "<leader>gd", "<cmd>Trouble lsp_definitions<cr>", opts("definition"))
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("hover"))
+          vim.keymap.set("n", "<leader>gi", "<cmd>Trouble lsp_implementations<cr>", opts("implementations"))
+          vim.keymap.set("n", "<leader>gP", vim.lsp.buf.signature_help, opts("signature help"))
+          vim.keymap.set("n", "<leader>gwa", vim.lsp.buf.add_workspace_folder, opts("add folder"))
+          vim.keymap.set("n", "<leader>gwr", vim.lsp.buf.remove_workspace_folder, opts("remove folder"))
           vim.keymap.set("n", "<leader>gwl", function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end, opts)
-          vim.keymap.set("n", "<leader>gtd", "<cmd>Trouble lsp_type_definitions<cr>", opts)
-          vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
-          vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-          vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>", opts)
+          end, opts("list folders"))
+          vim.keymap.set("n", "<leader>gtd", "<cmd>Trouble lsp_type_definitions<cr>", opts("type definition"))
+          vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts("rename"))
+          vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts("code action"))
+          vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>", opts("references"))
           vim.keymap.set("n", "<leader>gf", function()
             require("conform").format({ async = true })
-          end, opts)
+          end, opts("format"))
           vim.keymap.set("n", "<leader>th", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
-          end, opts)
+          end, opts("inlay hints"))
         end,
       })
     end,

@@ -18,14 +18,12 @@ return {
       {
         "<leader>ww",
         function()
-          -- Pick the window
           local window_id = require("window-picker").pick_window()
-
-          -- If a window is selected, move the cursor to it
           if window_id then
             vim.api.nvim_set_current_win(window_id)
           end
         end,
+        desc = "pick",
         noremap = true,
         silent = true,
       },

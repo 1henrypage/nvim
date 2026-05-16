@@ -87,13 +87,13 @@ return {
         },
       })
 
-      vim.keymap.set("n", "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", {})
-      vim.keymap.set("n", "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", {})
-      vim.keymap.set("n", "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", {})
-      vim.keymap.set("n", "<leader>br", "<Cmd>BufferLineCloseRight<CR>", {})
-      vim.keymap.set("n", "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", {})
-      vim.keymap.set("n", "<leader>bs", "<Cmd>BufferLinePick<CR>", {})
-      vim.keymap.set("n", "<leader>bS", "<Cmd>BufferLinePickClose<CR>", {})
+      vim.keymap.set("n", "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", { desc = "pin" })
+      vim.keymap.set("n", "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", { desc = "close others" })
+      vim.keymap.set("n", "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", { desc = "close left" })
+      vim.keymap.set("n", "<leader>br", "<Cmd>BufferLineCloseRight<CR>", { desc = "close right" })
+      vim.keymap.set("n", "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", { desc = "close unpinned" })
+      vim.keymap.set("n", "<leader>bs", "<Cmd>BufferLinePick<CR>", { desc = "pick" })
+      vim.keymap.set("n", "<leader>bS", "<Cmd>BufferLinePickClose<CR>", { desc = "pick close" })
 
       for i = 1, 9 do
         vim.keymap.set("n", "<leader>" .. i, function()

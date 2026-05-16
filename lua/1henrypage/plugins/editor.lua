@@ -77,6 +77,7 @@ return {
       spec = {
         { "<leader>s", group = "search" },
         { "<leader>g", group = "goto/lsp" },
+        { "<leader>gt", group = "type" },
         { "<leader>gw", group = "workspace" },
         { "<leader>t", group = "toggle" },
         { "<leader>tt", desc = "neotree" },
