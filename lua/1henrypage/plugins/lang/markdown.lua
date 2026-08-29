@@ -11,7 +11,7 @@ return {
     },
     config = function(_, opts)
       require("render-markdown").setup(opts)
-      vim.keymap.set("n", "<leader>tm", "<cmd>RenderMarkdown toggle<CR>", { desc = "Toggle Markdown Render" })
+      vim.keymap.set("n", "<leader>tm", "<cmd>RenderMarkdown toggle<CR>", { desc = "markdown render" })
     end,
   },
   {

@@ -139,18 +139,20 @@ return {
               }, { bufnr = bufnr, reuse_client = true })
             end
 
-            local opts = { buffer = bufnr, noremap = true, silent = true }
-            vim.keymap.set("n", "<leader>co", require("jdtls").organize_imports, opts)
-            vim.keymap.set("n", "<leader>cv", require("jdtls").extract_variable, opts)
+            local function opts(desc)
+              return { buffer = bufnr, noremap = true, silent = true, desc = desc }
+            end
+            vim.keymap.set("n", "<leader>co", require("jdtls").organize_imports, opts("organize imports"))
+            vim.keymap.set("n", "<leader>cv", require("jdtls").extract_variable, opts("extract variable"))
             vim.keymap.set("v", "<leader>cv", function()
               require("jdtls").extract_variable(true)
-            end, opts)
-            vim.keymap.set("n", "<leader>cm", require("jdtls").extract_method, opts)
+            end, opts("extract variable"))
+            vim.keymap.set("n", "<leader>cm", require("jdtls").extract_method, opts("extract method"))
             vim.keymap.set("v", "<leader>cm", function()
               require("jdtls").extract_method(true)
-            end, opts)
-            vim.keymap.set("n", "<leader>cT", require("jdtls.dap").test_class, opts)
-            vim.keymap.set("n", "<leader>ct", require("jdtls.dap").test_nearest_method, opts)
+            end, opts("extract method"))
+            vim.keymap.set("n", "<leader>cT", require("jdtls.dap").test_class, opts("test class"))
+            vim.keymap.set("n", "<leader>ct", require("jdtls.dap").test_nearest_method, opts("test nearest method"))
           end,
         }
 

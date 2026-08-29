@@ -1,3 +1,33 @@
+local wk_spec = {
+  { "<leader>s", group = "search" },
+  { "<leader>g", group = "goto/lsp" },
+  { "<leader>gt", group = "type" },
+  { "<leader>gw", group = "workspace" },
+  { "<leader>t", group = "toggle" },
+  { "<leader>T", group = "test" },
+  { "<leader>tt", desc = "neotree" },
+  { "<leader>t<Tab>", desc = "terminal" },
+  { "<leader>tw", desc = "wrap" },
+  { "<leader>tr", desc = "relative numbers" },
+  { "<leader>ts", desc = "spell" },
+  { "<leader>tc", desc = "conceal" },
+  { "<leader>th", desc = "inlay hints" },
+  { "<leader>w", group = "window" },
+  { "<leader>c", group = "code" },
+  { "<leader>h", group = "git" },
+  { "<leader>d", group = "debug" },
+  { "<leader>x", group = "diagnostics" },
+  { "<leader>b", group = "buffer" },
+  { "<leader>.", group = "utilities" },
+  { "<leader>r", desc = "rename" },
+  { "<leader>J", desc = "split/join" },
+}
+
+-- bufferline jump keys: functional but self-evident, keep them out of the popup
+for i = 0, 9 do
+  table.insert(wk_spec, { "<leader>" .. i, hidden = true })
+end
+
 return {
   -- Status Column
   {
@@ -65,39 +95,14 @@ return {
     },
     config = function(_, opts)
       require("ufo").setup(opts)
-      vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-      vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+      vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "open all folds" })
+      vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "close all folds" })
     end,
   },
 
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    opts = {
-      spec = {
-        { "<leader>s", group = "search" },
-        { "<leader>g", group = "goto/lsp" },
-        { "<leader>gt", group = "type" },
-        { "<leader>gw", group = "workspace" },
-        { "<leader>t", group = "toggle" },
-        { "<leader>T", group = "test" },
-        { "<leader>tt", desc = "neotree" },
-        { "<leader>t<Tab>", desc = "terminal" },
-        { "<leader>tw", desc = "wrap" },
-        { "<leader>tr", desc = "relative numbers" },
-        { "<leader>ts", desc = "spell" },
-        { "<leader>tc", desc = "conceal" },
-        { "<leader>th", desc = "inlay hints" },
-        { "<leader>w", group = "window" },
-        { "<leader>c", group = "code" },
-        { "<leader>h", group = "git" },
-        { "<leader>d", group = "debug" },
-        { "<leader>x", group = "diagnostics" },
-        { "<leader>b", group = "buffer" },
-        { "<leader>.", group = "utilities" },
-        { "<leader>r", desc = "rename" },
-        { "<leader>J", desc = "split/join" },
-      },
-    },
+    opts = { spec = wk_spec },
   },
 }
