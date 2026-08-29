@@ -29,8 +29,9 @@ lua/1henrypage/
     neo-tree.lua        -- File explorer
     mini.lua            -- mini.nvim modules (ai, pairs, notify, surround, etc.)
     snacks.lua          -- snacks.nvim dashboard
+    neotest.lua         -- neotest core setup + <leader>T keymaps (adapters supplied by lang files)
     git.lua, ui.lua, tmux.lua, window.lua, dap.lua, dependencies.lua
-    lang/               -- Language-specific plugin configs (haskell, java, python, web, misc)
+    lang/               -- Language-specific plugin configs (haskell, java, markdown, python, rust, web, misc)
 snippets/               -- snipmate-format snippet files
 ```
 
@@ -43,3 +44,5 @@ snippets/               -- snipmate-format snippet files
 - **Theme:** tokyonight storm with transparent background. Sidebar/bufferline colors are custom extensions of the palette defined in `extras/colors.lua`.
 - **Snippets:** Both vscode-format (via `from_vscode`) and snipmate-format (via `from_snipmate`) loaders are active.
 - **LSP init/config ordering:** `vim.lsp.enable()` and `vim.lsp.config()` (pure nvim 0.11 API, no plugin required) go in `init` in lang files. Anything calling `require("blink.cmp")` must go in `config` with `"saghen/blink.cmp"` as a dependency. The main `nvim-lspconfig` spec in `lsp.lua` must have no `event` lazy-trigger (loads at startup) and list `blink.cmp` as a dependency, so capabilities and the `LspAttach` autocmd are registered before any `FileType` event fires (e.g. when opening a file from the dashboard).
+- **neotest adapters:** `neotest.lua` owns the core `require("neotest").setup()` call and the `<leader>T` keymaps; it never lists adapters itself. Lang files append adapter module names as strings to `opts.adapters` (merged via `opts_extend = { "adapters" }`), and `neotest.lua`'s `config` resolves each string with `require(name)` before handing them to `setup()`.
+- **rustaceanvim owns rust-analyzer:** `rust_analyzer` must never be passed to `vim.lsp.enable()` or `vim.lsp.config()` - `mrcjkb/rustaceanvim` starts and manages that client itself via `vim.lsp.start`, so it does not inherit the global `vim.lsp.config("*", { capabilities })` from `lsp.lua` and must be given capabilities explicitly (see `lang/rust.lua`, same pattern as `lang/java.lua`'s jdtls setup).

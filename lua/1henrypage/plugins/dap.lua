@@ -91,4 +91,10 @@ return {
       end
     end,
   },
+
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    dependencies = { "mfussenegger/nvim-dap" },
+    opts = {},
+  },
 }

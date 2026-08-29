@@ -80,6 +80,7 @@ return {
         { "<leader>gt", group = "type" },
         { "<leader>gw", group = "workspace" },
         { "<leader>t", group = "toggle" },
+        { "<leader>T", group = "test" },
         { "<leader>tt", desc = "neotree" },
         { "<leader>t<Tab>", desc = "terminal" },
         { "<leader>tw", desc = "wrap" },
