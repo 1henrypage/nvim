@@ -37,7 +37,7 @@ return {
             key = "f",
             desc = "Find File",
             action = function()
-              require("telescope.builtin").find_files()
+              require("1henrypage.utils").picker.smart_files()
             end,
           },
           {
@@ -45,7 +45,7 @@ return {
             key = "g",
             desc = "Find Text",
             action = function()
-              require("telescope").extensions.live_grep_args.live_grep_args()
+              require("fzf-lua").live_grep_glob()
             end,
           },
           {
@@ -53,7 +53,7 @@ return {
             key = "r",
             desc = "Recent Files",
             action = function()
-              require("telescope.builtin").oldfiles()
+              require("fzf-lua").oldfiles()
             end,
           },
           {

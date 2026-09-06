@@ -19,13 +19,14 @@ lua/1henrypage/
     colors.lua          -- Central color palette (tokyonight storm extensions)
   utils/
     init.lua            -- Utility functions
+    picker.lua          -- Shared smart-files helper (git_files vs fd fallback)
   plugins/
     init.lua            -- Calls extras.init(), declares lazy self-spec
     colorscheme.lua     -- tokyonight (storm, transparent)
     buffer.lua          -- bufferline.nvim
     editor.lua          -- LuaSnip, nvim-cmp, ufo, which-key, statuscol
     lsp.lua             -- mason, lspconfig, conform
-    telescope.lua       -- telescope + extensions
+    fzf-lua.lua         -- fzf-lua picker
     neo-tree.lua        -- File explorer
     mini.lua            -- mini.nvim modules (ai, pairs, notify, surround, etc.)
     snacks.lua          -- snacks.nvim dashboard

@@ -16,14 +16,14 @@ return {
       ---@param hl Highlights
       ---@param c ColorScheme
       on_highlights = function(hl, c)
-        -- Telescope: visible borders, colored title badges
-        hl.TelescopeNormal = { bg = c.bg_dark, fg = c.fg_dark }
-        hl.TelescopeBorder = { bg = c.bg_dark, fg = c.blue }
-        hl.TelescopePromptNormal = { bg = Colors.prompt_bg }
-        hl.TelescopePromptBorder = { bg = Colors.prompt_bg, fg = c.blue }
-        hl.TelescopePromptTitle = { bg = c.blue, fg = c.bg_dark, bold = true }
-        hl.TelescopePreviewTitle = { bg = c.green, fg = c.bg_dark, bold = true }
-        hl.TelescopeResultsTitle = { bg = c.bg_dark, fg = c.bg_dark }
+        -- fzf-lua: visible borders, colored title badges
+        hl.FzfLuaNormal = { bg = c.bg_dark, fg = c.fg_dark }
+        hl.FzfLuaBorder = { bg = c.bg_dark, fg = c.blue }
+        hl.FzfLuaTitle = { bg = c.blue, fg = c.bg_dark, bold = true }
+        hl.FzfLuaPreviewNormal = { bg = c.bg_dark, fg = c.fg_dark }
+        hl.FzfLuaPreviewBorder = { bg = c.bg_dark, fg = c.blue }
+        hl.FzfLuaPreviewTitle = { bg = c.green, fg = c.bg_dark, bold = true }
+        hl.FzfLuaCursorLine = { bg = Colors.picker_cursorline }
         -- Neo-tree: deep dark sidebar, darker than editor
         hl.NeoTreeNormal = { bg = Colors.bg_deep, fg = c.fg_dark }
         hl.NeoTreeNormalNC = { bg = Colors.bg_deep, fg = c.fg_dark }
