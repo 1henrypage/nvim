@@ -59,6 +59,24 @@ return {
           border = "rounded",
           preview = { layout = "flex", flip_columns = 120, horizontal = "right:55%" },
         },
+        keymap = {
+          fzf = {
+            -- vim-style modal nav: <esc> hides the input line and switches
+            -- hjkl to move the cursor; `i` shows it again, `q` or a second
+            -- <esc> closes the picker. h/j/k/l are unbound right after start
+            -- so typing them into the query works normally until <esc> is
+            -- pressed; $FZF_INPUT_STATE (not --prompt) tracks which mode
+            -- we're in so this doesn't depend on any picker's prompt text.
+            ["start"] = "unbind(h,j,k,l)",
+            ["h"] = "half-page-up",
+            ["j"] = "down",
+            ["k"] = "up",
+            ["l"] = "half-page-down",
+            ["i"] = [=[transform:[[ $FZF_INPUT_STATE == "hidden" ]] && echo "unbind(h,j,k,l)+show-input" || echo put]=],
+            ["q"] = [=[transform:[[ $FZF_INPUT_STATE == "hidden" ]] && echo abort || echo put]=],
+            ["esc"] = [=[transform:[[ $FZF_INPUT_STATE == "hidden" ]] && echo abort || echo "rebind(h,j,k,l)+hide-input"]=],
+          },
+        },
         files = { hidden = true },
         git = { files = { cmd = "git ls-files --exclude-standard --cached --others" } },
         -- builtin previewer's treesitter highlighting crashes on some buffers
