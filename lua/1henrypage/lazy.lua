@@ -23,7 +23,7 @@ require("lazy").setup({
     version = "*", -- latest stable version
     lazy = false,
   },
-  install = { colorscheme = { "tokyonight" } },
+  install = { colorscheme = { "ristretto" } },
   rocks = { enabled = false },
   change_detection = {
     enabled = false,

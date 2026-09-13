@@ -1,7 +1,10 @@
 local M = {}
 
 function M.assemble()
-  require("1henrypage.extras").setup()
+  local Extras = require("1henrypage.extras")
+  Extras.setup()
+  Extras.init()
+  vim.cmd.colorscheme("ristretto")
   require("1henrypage.lazy")
 end
 

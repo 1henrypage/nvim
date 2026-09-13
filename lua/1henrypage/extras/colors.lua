@@ -1,22 +1,31 @@
+-- Canonical Monokai Pro Ristretto palette. Keep every UI color anchored here so
+-- plugin configuration never grows its own almost-matching shades.
 local M = {
-  bg_deep = "#13141e", -- neo-tree sidebar, bufferline fill
-  bg_inactive = "#1b1e2c", -- inactive tab bg
-  bg_active = "#24283b", -- active tab bg (tokyonight storm bg)
-  fg_muted = "#565f89", -- muted text
-  fg_visible = "#737aa2", -- visible buffer text
-  blue = "#7aa2f7", -- tokyonight blue
-  fg = "#c0caf5", -- tokyonight fg
-  red = "#f7768e", -- tokyonight red
-  picker_cursorline = "#2d3149", -- fzf-lua selected row bg
-  indent_marker = "#5a4e2e", -- neo-tree indent marker
-  expander = "#7a6830", -- neo-tree expander
-  insert_cursorline = "#005f00",
-  codeium = "#09B6A2",
-  copilot = "#FEFFFF",
-  cursor = "#a3aed2", -- kitty cursor color
-  cursor_text = "#1d2230", -- kitty cursor text color
-  git_add = "#00ff41", -- neon green for gitsigns add
-  git_delete = "#ff1a1a", -- bright red for gitsigns delete
+  dark2 = "#191515",
+  dark1 = "#211c1c",
+  background = "#2c2525",
+  terminal = "#403838",
+  text = "#fff1f3",
+  red = "#fd6883",
+  orange = "#f38d70",
+  yellow = "#f9cc6c",
+  green = "#adda78",
+  cyan = "#85dacc",
+  purple = "#a8a9eb",
+  dimmed1 = "#c3b7b8",
+  dimmed2 = "#948a8b",
+  dimmed3 = "#72696a",
+  dimmed4 = "#5b5353",
+  dimmed5 = "#403838",
+
+  picker_cursorline = "#403838",
+  insert_cursorline = "#5b5353",
+  codeium = "#85dacc",
+  copilot = "#fff1f3",
+  cursor = "#fff1f3",
+  cursor_text = "#403838",
+  git_add = "#adda78",
+  git_delete = "#fd6883",
 }
 
 return M

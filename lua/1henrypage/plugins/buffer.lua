@@ -6,9 +6,11 @@ return {
   {
     "akinsho/bufferline.nvim",
     version = "*",
-    config = function(_, opts)
-      require("bufferline").setup({
+    config = function()
+      local bufferline = require("bufferline")
+      bufferline.setup({
         options = {
+          style_preset = bufferline.style_preset.no_italic,
           -- Buffer Icons config
           modified_icon = Icons.git.modified,
           close_icon = "󰅖",
@@ -19,7 +21,7 @@ return {
           themable = true,
           diagnostics = "nvim_lsp",
           diagnostics_update_on_event = true,
-          diagnostics_indicator = function(count, level, diagnostics_dict, context)
+          diagnostics_indicator = function(_count, _level, diagnostics_dict, _context)
             local parts = {}
             if diagnostics_dict.error then
               table.insert(parts, Icons.diagnostics.error .. " " .. diagnostics_dict.error)
@@ -61,29 +63,24 @@ return {
           },
         },
         highlights = {
-          fill = { bg = Colors.bg_deep },
+          fill = { bg = Colors.dark1 },
 
-          -- Inactive tabs: midpoint between bg_active and bg_deep
-          background = { bg = Colors.bg_inactive, fg = Colors.fg_muted },
-          buffer_visible = { bg = Colors.bg_inactive, fg = Colors.fg_visible },
+          background = { bg = Colors.dark2, fg = Colors.dimmed3 },
+          buffer_visible = { bg = Colors.terminal, fg = Colors.dimmed2 },
 
-          -- Selected tab: matches editor bg
-          buffer_selected = { bg = Colors.bg_active, fg = Colors.fg, bold = true },
+          buffer_selected = { bg = Colors.background, fg = Colors.text, bold = true },
 
-          -- Slopes: inactive uses inactive tab color, selected uses active tab color
-          separator = { fg = Colors.bg_deep, bg = Colors.bg_inactive },
-          separator_visible = { fg = Colors.bg_deep, bg = Colors.bg_inactive },
-          separator_selected = { fg = Colors.bg_deep, bg = Colors.bg_active },
+          separator = { fg = Colors.dark1, bg = Colors.dark2 },
+          separator_visible = { fg = Colors.dark1, bg = Colors.terminal },
+          separator_selected = { fg = Colors.dark1, bg = Colors.background },
 
-          -- Close buttons: bg matches parent tab
-          close_button = { fg = Colors.fg_muted, bg = Colors.bg_inactive },
-          close_button_visible = { fg = Colors.fg_muted, bg = Colors.bg_inactive },
-          close_button_selected = { fg = Colors.red, bg = Colors.bg_active },
+          close_button = { fg = Colors.dimmed3, bg = Colors.dark2 },
+          close_button_visible = { fg = Colors.dimmed3, bg = Colors.terminal },
+          close_button_selected = { fg = Colors.red, bg = Colors.background },
 
-          -- Modified indicator: bg matches parent tab
-          modified = { fg = Colors.blue, bg = Colors.bg_inactive },
-          modified_visible = { fg = Colors.blue, bg = Colors.bg_inactive },
-          modified_selected = { fg = Colors.blue, bg = Colors.bg_active },
+          modified = { fg = Colors.orange, bg = Colors.dark2 },
+          modified_visible = { fg = Colors.orange, bg = Colors.terminal },
+          modified_selected = { fg = Colors.orange, bg = Colors.background },
         },
       })
 

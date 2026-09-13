@@ -5,6 +5,8 @@ Lua-based neovim config using lazy.nvim as the plugin manager. This repo is a gi
 ## Structure
 
 ```
+colors/
+  ristretto.lua         -- Native, dependency-free colorscheme
 lua/1henrypage/
   init.lua              -- Entry point: loads extras, bootstraps lazy
   lazy.lua              -- lazy.nvim bootstrap and plugin loading
@@ -16,13 +18,13 @@ lua/1henrypage/
     keymaps.lua         -- Global keybindings
     autocmds.lua        -- Autocommands
     icons.lua           -- Shared icon definitions (nerd font glyphs)
-    colors.lua          -- Central color palette (tokyonight storm extensions)
+    colors.lua          -- Canonical Monokai Pro Ristretto palette
   utils/
     init.lua            -- Utility functions
     picker.lua          -- Shared smart-files helper (git_files vs fd fallback)
+    winbar.lua           -- File and LSP-symbol breadcrumbs
   plugins/
     init.lua            -- Calls extras.init(), declares lazy self-spec
-    colorscheme.lua     -- tokyonight (storm, transparent)
     buffer.lua          -- bufferline.nvim
     editor.lua          -- LuaSnip, nvim-cmp, ufo, which-key, statuscol
     lsp.lua             -- mason, lspconfig, conform
@@ -32,6 +34,7 @@ lua/1henrypage/
     snacks.lua          -- snacks.nvim dashboard
     neotest.lua         -- neotest core setup + <leader>T keymaps (adapters supplied by lang files)
     git.lua, ui.lua, tmux.lua, window.lua, dap.lua, dependencies.lua
+                         -- ui.lua owns breadcrumbs, outline, diagnostics and indent guides
     lang/               -- Language-specific plugin configs (haskell, java, markdown, python, rust, web, misc)
 snippets/               -- snipmate-format snippet files
 ```
@@ -42,9 +45,9 @@ snippets/               -- snipmate-format snippet files
 - **Colors:** All hex color codes live in `extras/colors.lua`. Never hardcode hex values in plugin configs — reference `Colors.*` instead.
 - **Lang configs:** All language-specific setup goes in `plugins/lang/`. Never use ftplugin/.
 - **Plugin files:** One file per plugin or logical group. Don't consolidate into monolithic files.
-- **Theme:** tokyonight storm with transparent background. Sidebar/bufferline colors are custom extensions of the palette defined in `extras/colors.lua`.
+- **Theme:** native Monokai Pro Ristretto with solid backgrounds. The canonical palette lives in `extras/colors.lua`; `colors/ristretto.lua` covers editor, syntax, LSP, and plugin highlights without a colorscheme dependency.
 - **Snippets:** Both vscode-format (via `from_vscode`) and snipmate-format (via `from_snipmate`) loaders are active.
 - **LSP init/config ordering:** `vim.lsp.enable()` and `vim.lsp.config()` (pure nvim 0.11 API, no plugin required) go in `init` in lang files. Anything calling `require("blink.cmp")` must go in `config` with `"saghen/blink.cmp"` as a dependency. The main `nvim-lspconfig` spec in `lsp.lua` must have no `event` lazy-trigger (loads at startup) and list `blink.cmp` as a dependency, so capabilities and the `LspAttach` autocmd are registered before any `FileType` event fires (e.g. when opening a file from the dashboard).
 - **neotest adapters:** `neotest.lua` owns the core `require("neotest").setup()` call and the `<leader>T` keymaps; it never lists adapters itself. Lang files append adapter module names as strings to `opts.adapters` (merged via `opts_extend = { "adapters" }`), and `neotest.lua`'s `config` resolves each string with `require(name)` before handing them to `setup()`.
 - **rustaceanvim owns rust-analyzer:** `rust_analyzer` must never be passed to `vim.lsp.enable()` or `vim.lsp.config()` - `mrcjkb/rustaceanvim` starts and manages that client itself via `vim.lsp.start`, so it does not inherit the global `vim.lsp.config("*", { capabilities })` from `lsp.lua` and must be given capabilities explicitly (see `lang/rust.lua`, same pattern as `lang/java.lua`'s jdtls setup).
-- **which-key labels live at the definition site, not the spec:** `desc` belongs on the `vim.keymap.set` call. The `spec` table in `plugins/editor.lua` exists only for maps whose definition site structurally cannot carry a desc (e.g. `extras/keymaps.lua`'s `map()` helper, `neo-tree.lua`'s literal `{}`, `mini.splitjoin`'s own config), for presentation-only entries like the hidden `<leader>0`-`9` bufferline jumps, and for global fallbacks covering buffer-local LSP maps (`<leader>th`, `<leader>r` are created on `LspAttach`, so without the fallback their labels vanish in non-LSP buffers). Don't "clean up" spec entries that look redundant with a definition-site desc without checking which of these reasons applies.
+- **which-key labels live at the definition site, not the spec:** `desc` belongs on the `vim.keymap.set` call. The `spec` table in `plugins/editor.lua` exists only for maps whose definition site structurally cannot carry a desc (e.g. `extras/keymaps.lua`'s `map()` helper, `neo-tree.lua`'s literal `{}`, `mini.splitjoin`'s own config), for presentation-only entries like the hidden `<leader>0`-`9` bufferline jumps, and for global fallbacks covering buffer-local LSP maps (`<leader>th` and `<leader>tl` are created on `LspAttach`, so without fallbacks their labels vanish in non-LSP buffers). Don't "clean up" spec entries that look redundant with a definition-site desc without checking which of these reasons applies.

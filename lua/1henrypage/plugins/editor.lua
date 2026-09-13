@@ -12,6 +12,7 @@ local wk_spec = {
   { "<leader>ts", desc = "spell" },
   { "<leader>tc", desc = "conceal" },
   { "<leader>th", desc = "inlay hints" },
+  { "<leader>tl", desc = "code lenses" },
   { "<leader>w", group = "window" },
   { "<leader>c", group = "code" },
   { "<leader>h", group = "git" },
@@ -19,7 +20,6 @@ local wk_spec = {
   { "<leader>x", group = "diagnostics" },
   { "<leader>b", group = "buffer" },
   { "<leader>.", group = "utilities" },
-  { "<leader>r", desc = "rename" },
   { "<leader>J", desc = "split/join" },
 }
 
@@ -89,7 +89,7 @@ return {
       "kevinhwang91/promise-async",
     },
     opts = {
-      provider_selector = function(bufnr, filetype, buftype)
+      provider_selector = function()
         return { "treesitter", "indent" }
       end,
     },

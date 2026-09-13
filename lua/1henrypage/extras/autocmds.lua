@@ -110,12 +110,12 @@ local insert_cursorline_group = Utils.augroup("insert_cursorline")
 vim.api.nvim_create_autocmd("InsertEnter", {
   group = insert_cursorline_group,
   callback = function()
-    vim.api.nvim_set_hl(0, "CursorLine", { bg = Colors.insert_cursorline, ctermbg = 23 })
+    vim.api.nvim_set_hl(0, "CursorLine", { bg = Colors.insert_cursorline })
   end,
 })
 vim.api.nvim_create_autocmd("InsertLeave", {
   group = insert_cursorline_group,
   callback = function()
-    vim.api.nvim_set_hl(0, "CursorLine", {})
+    vim.api.nvim_set_hl(0, "CursorLine", { bg = Colors.terminal })
   end,
 })
