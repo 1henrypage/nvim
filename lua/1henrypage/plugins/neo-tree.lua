@@ -25,6 +25,10 @@ return {
         },
       },
       sources = { "filesystem", "buffers", "git_status" },
+      filesystem = {
+        -- also makes the `:Neotree toggle` keymap below reveal on open, via implied reveal
+        follow_current_file = { enabled = true },
+      },
       window = {
         width = 36,
       },
