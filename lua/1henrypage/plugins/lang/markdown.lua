@@ -20,8 +20,15 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    init = function()
-      vim.lsp.enable({ "marksman" })
-    end,
+    opts = {
+      servers = {
+        marksman = {
+          -- marksman logs at info to stderr, which Nvim records as [ERROR] lines in lsp.log.
+          cmd = { "marksman", "server", "--verbose", "1" },
+          -- lspconfig also lists "markdown.mdx", a filetype Nvim never detects (health warns).
+          filetypes = { "markdown" },
+        },
+      },
+    },
   },
 }

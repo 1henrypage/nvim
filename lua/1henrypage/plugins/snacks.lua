@@ -1,7 +1,45 @@
+local Utils = require("1henrypage.utils")
+
+-- Nvim 0.12 draws "[Process exited N]" as an extmark instead of a buffer line, so snacks'
+-- Job:hide_process_exited() (which deletes that line) no longer hides it under the dashboard's
+-- terminal sections. Drop the clean-exit mark ourselves; non-zero exits stay visible, as before.
+local function hide_clean_exit(buf)
+  if not vim.api.nvim_buf_is_valid(buf) or vim.bo[buf].filetype ~= "snacks_dashboard" then
+    return
+  end
+  local ns = vim.api.nvim_create_namespace("nvim.terminal.exitmsg")
+  for _, mark in ipairs(vim.api.nvim_buf_get_extmarks(buf, ns, 0, -1, { details = true })) do
+    local virt_text = mark[4].virt_text
+    if virt_text and virt_text[1] and virt_text[1][1] == "[Process exited 0]" then
+      vim.api.nvim_buf_del_extmark(buf, ns, mark[1])
+    end
+  end
+end
+
 return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
+  config = function(_, opts)
+    require("snacks").setup(opts)
+
+    -- snacks tags a section's terminal buffer as a dashboard buffer either before or after its
+    -- process exits, so catch both orders.
+    local group = Utils.augroup("dashboard_exitmsg")
+    vim.api.nvim_create_autocmd("TermClose", {
+      group = group,
+      callback = function(event)
+        hide_clean_exit(event.buf)
+      end,
+    })
+    vim.api.nvim_create_autocmd("FileType", {
+      group = group,
+      pattern = "snacks_dashboard",
+      callback = function(event)
+        hide_clean_exit(event.buf)
+      end,
+    })
+  end,
   keys = {
     {
       "<leader>.d",
@@ -45,7 +83,7 @@ return {
             key = "g",
             desc = "Find Text",
             action = function()
-              require("fzf-lua").live_grep_glob()
+              require("fzf-lua").live_grep()
             end,
           },
           {

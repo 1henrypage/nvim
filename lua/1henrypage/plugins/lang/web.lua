@@ -111,67 +111,66 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    init = function()
-      vim.lsp.config("vtsls", {
-        root_dir = vtsls_root_dir,
-        before_init = function(_, config)
-          local tsdk = workspace_tsdk(config.root_dir)
-          config.settings.vtsls.typescript = config.settings.vtsls.typescript or {}
-          config.settings.vtsls.typescript.globalTsdk = tsdk
-        end,
-        settings = {
-          vtsls = {
-            autoUseWorkspaceTsdk = true,
-            experimental = {
-              completion = { enableServerSideFuzzyMatch = true },
-            },
-          },
-          typescript = {
-            suggest = { completeFunctionCalls = true },
-            updateImportsOnFileMove = { enabled = "always" },
-            inlayHints = {
-              parameterNames = { enabled = "literals" },
-              enumMemberValues = { enabled = true },
-            },
-          },
-          javascript = {
-            suggest = { completeFunctionCalls = true },
-            updateImportsOnFileMove = { enabled = "always" },
-            inlayHints = {
-              parameterNames = { enabled = "literals" },
-              enumMemberValues = { enabled = true },
-            },
-          },
-        },
-      })
-
-      vim.lsp.config("eslint", {
-        settings = {
-          format = false,
-          workingDirectory = { mode = "auto" },
-        },
-        on_attach = function(client, bufnr)
-          vim.api.nvim_buf_create_user_command(bufnr, "LspEslintFixAll", function()
-            client:request_sync("workspace/executeCommand", {
-              command = "eslint.applyAllFixes",
-              arguments = {
-                {
-                  uri = vim.uri_from_bufnr(bufnr),
-                  version = vim.lsp.util.buf_versions[bufnr],
-                },
+    opts = {
+      servers = {
+        vtsls = {
+          root_dir = vtsls_root_dir,
+          before_init = function(_, config)
+            local tsdk = workspace_tsdk(config.root_dir)
+            config.settings.vtsls.typescript = config.settings.vtsls.typescript or {}
+            config.settings.vtsls.typescript.globalTsdk = tsdk
+          end,
+          settings = {
+            vtsls = {
+              autoUseWorkspaceTsdk = true,
+              experimental = {
+                completion = { enableServerSideFuzzyMatch = true },
               },
-            }, nil, bufnr)
-          end, {})
-          vim.keymap.set("n", "<leader>cf", "<cmd>LspEslintFixAll<cr>", {
-            buffer = bufnr,
-            silent = true,
-            desc = "fix all",
-          })
-        end,
-      })
-
-      vim.lsp.enable({ "vtsls", "eslint" })
-    end,
+            },
+            typescript = {
+              suggest = { completeFunctionCalls = true },
+              updateImportsOnFileMove = { enabled = "always" },
+              inlayHints = {
+                parameterNames = { enabled = "literals" },
+                enumMemberValues = { enabled = true },
+              },
+            },
+            javascript = {
+              suggest = { completeFunctionCalls = true },
+              updateImportsOnFileMove = { enabled = "always" },
+              inlayHints = {
+                parameterNames = { enabled = "literals" },
+                enumMemberValues = { enabled = true },
+              },
+            },
+          },
+        },
+        eslint = {
+          settings = {
+            format = false,
+            workingDirectory = { mode = "auto" },
+          },
+          on_attach = function(client, bufnr)
+            vim.api.nvim_buf_create_user_command(bufnr, "LspEslintFixAll", function()
+              client:request_sync("workspace/executeCommand", {
+                command = "eslint.applyAllFixes",
+                arguments = {
+                  {
+                    uri = vim.uri_from_bufnr(bufnr),
+                    version = vim.lsp.util.buf_versions[bufnr],
+                  },
+                },
+              }, nil, bufnr)
+            end, {})
+            vim.keymap.set("n", "<leader>cf", "<cmd>LspEslintFixAll<cr>", {
+              buffer = bufnr,
+              silent = true,
+              desc = "fix all",
+            })
+          end,
+        },
+      },
+    },
   },
 
   {

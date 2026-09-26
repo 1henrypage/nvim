@@ -20,7 +20,11 @@ require("lazy").setup({
     { import = "1henrypage.plugins.lang" },
   },
   defaults = {
-    version = "*", -- latest stable version
+    -- Track each plugin's default branch; lazy-lock.json pins the exact commits. `version = "*"`
+    -- left plugins that rarely tag on years-old releases (nvim-jdtls 0.2.0 from 2022, plenary
+    -- 0.1.4 from 2023) calling APIs Nvim has since deprecated. Plugins with a real release
+    -- train keep an explicit `version` in their own spec.
+    version = false,
     lazy = false,
   },
   install = { colorscheme = { "ristretto" } },

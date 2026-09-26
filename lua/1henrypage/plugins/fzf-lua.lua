@@ -17,7 +17,7 @@ return {
       {
         "<leader>sf",
         function()
-          require("fzf-lua").live_grep_glob()
+          require("fzf-lua").live_grep()
         end,
         desc = "live grep",
       },
@@ -126,7 +126,6 @@ return {
         -- builtin previewer's treesitter highlighting crashes on some buffers
         previewers = { builtin = { treesitter = { enabled = false } } },
         grep = {
-          rg_glob = true,
           -- --color=always and trailing -e are required: fzf-lua parses rg's
           -- output format, and without them Enter fails to open the match
           rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --hidden -e",

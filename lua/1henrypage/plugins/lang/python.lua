@@ -11,23 +11,26 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    init = function()
-      vim.lsp.enable({ "basedpyright", "ruff" })
-      vim.lsp.config("basedpyright", {
-        settings = {
-          basedpyright = {
-            analysis = {
-              exclude = { "**/*.ipynb" },
-            },
-            inlayHints = {
-              callArgumentNames = "all",
-              functionReturnTypes = true,
-              variableTypes = true,
+    opts = {
+      servers = {
+        basedpyright = {
+          settings = {
+            basedpyright = {
+              analysis = {
+                exclude = { "**/*.ipynb" },
+              },
+              inlayHints = {
+                callArgumentNames = "all",
+                functionReturnTypes = true,
+                variableTypes = true,
+              },
             },
           },
         },
-      })
-    end,
+        -- ruff logs at info to stderr, which Nvim records as [ERROR] lines in lsp.log.
+        ruff = { init_options = { settings = { logLevel = "warn" } } },
+      },
+    },
   },
 
   {

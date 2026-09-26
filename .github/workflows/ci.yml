@@ -33,11 +33,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Read pinned Neovim version
+        id: nvim
+        run: echo "version=$(cat nvim.version)" >> "$GITHUB_OUTPUT"
       - name: Install Neovim
         uses: rhysd/action-setup-vim@v1
         with:
           neovim: true
-          version: stable
+          version: ${{ steps.nvim.outputs.version }}
       - name: Load config
         run: |
           export XDG_CONFIG_HOME="$RUNNER_TEMP/config"

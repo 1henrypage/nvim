@@ -62,6 +62,8 @@ return {
         theme = lualine_theme,
         component_separators = { left = "│", right = "│" },
       },
+      -- Sidebars and tool windows get their own statusline instead of "[No Name] [-]".
+      extensions = { "aerial", "fzf", "lazy", "man", "mason", "neo-tree", "nvim-dap-ui", "quickfix", "trouble" },
     },
   },
 
@@ -110,7 +112,7 @@ return {
           "lua_ls",
           "marksman",
           "ruff",
-          "spring-boot-ls",
+          "spring-boot",
         },
       },
     },
@@ -122,8 +124,6 @@ return {
 
   {
     "stevearc/aerial.nvim",
-    branch = "nvim-0.11",
-    version = false,
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
     opts = {
       backends = { "lsp", "treesitter", "markdown", "man" },
@@ -260,6 +260,25 @@ return {
       })
       local inline_diagnostics = require("tiny-inline-diagnostic")
       inline_diagnostics.setup(opts)
+
+      -- Messages are placed at virtcol("$"), which counts inline virtual text such as inlay
+      -- hints. Nvim 0.12 only draws hints on the redraw after their response, and they usually
+      -- land after the first diagnostics, while the plugin re-renders only on cursor/diagnostic
+      -- events - so the message would cover the end of the code until the cursor moves. Once a
+      -- response is handled (LspRequest "complete" fires just before its handler), draw the
+      -- hints and re-render.
+      vim.api.nvim_create_autocmd("LspRequest", {
+        group = Utils.augroup("inline_diagnostics_inlay_hints"),
+        callback = function(event)
+          local request = event.data.request
+          if request.type == "complete" and request.method == "textDocument/inlayHint" then
+            vim.schedule(function()
+              vim.cmd.redraw()
+              require("tiny-inline-diagnostic.renderer").safe_render(inline_diagnostics.config, request.bufnr)
+            end)
+          end
+        end,
+      })
       vim.keymap.set("n", "<leader>td", inline_diagnostics.toggle, { desc = "Toggle inline diagnostics" })
     end,
   },

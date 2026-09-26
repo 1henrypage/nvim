@@ -73,7 +73,7 @@ local notify_config = {
 
 return {
   {
-    "echasnovski/mini.nvim",
+    "nvim-mini/mini.nvim",
     version = "*",
     config = function()
       require("mini.ai").setup(ai_config)

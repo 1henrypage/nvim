@@ -69,11 +69,11 @@ return {
       keymap = { preset = "enter" },
       appearance = { nerd_font_variant = "mono" },
       completion = {
-        documentation = { auto_show = true, auto_show_delay_ms = 500 },
+        documentation = { auto_show = true, auto_show_delay_ms = 500, window = { border = "rounded" } },
         ghost_text = { enabled = true },
         menu = { border = "rounded" },
       },
-      signature = { enabled = true },
+      signature = { enabled = true, window = { border = "rounded" } },
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
       },
@@ -89,7 +89,14 @@ return {
       "kevinhwang91/promise-async",
     },
     opts = {
-      provider_selector = function()
+      provider_selector = function(bufnr)
+        -- '' disables folding. Special buffers (dashboard, terminals, help, sidebars) have no
+        -- structure worth folding, and the global foldcolumn would print their fold levels.
+        -- Read 'buftype' live: ufo passes the value cached when it first attached, which is ""
+        -- for the startup buffer that snacks' dashboard later turns into a nofile buffer.
+        if vim.bo[bufnr].buftype ~= "" then
+          return ""
+        end
         return { "treesitter", "indent" }
       end,
     },

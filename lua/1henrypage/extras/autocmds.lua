@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = Utils.augroup("highlight_yanks"),
   pattern = "*",
   callback = function()
-    vim.highlight.on_yank({ timeout = 200 })
+    vim.hl.on_yank({ timeout = 200 })
   end,
 })
 
@@ -51,16 +51,9 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 
 -- custom titlestring
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  pattern = { "" },
+  group = Utils.augroup("titlestring"),
   callback = function()
-    local get_project_dir = function()
-      local cwd = vim.fn.getcwd()
-      local project_dir = vim.split(cwd, "/")
-      local project_name = project_dir[#project_dir]
-      return project_name
-    end
-
-    vim.opt.titlestring = get_project_dir()
+    vim.opt.titlestring = vim.fs.basename(vim.fn.getcwd())
   end,
 })
 

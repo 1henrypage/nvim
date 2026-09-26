@@ -1,5 +1,5 @@
 --[[
--- Stolen from loctvl842/nvim 
+-- Stolen from loctvl842/nvim
 --]]
 
 ---@alias BorderStyle "rounded" | "double" | "thin" | "empty" | "thick" | "debug"

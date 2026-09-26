@@ -6,7 +6,8 @@ return {
 
   {
     "mrcjkb/haskell-tools.nvim",
-    version = "3.1.6",
-    ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
+    version = "^11",
+    -- lazy-loads itself per filetype (:h lua-plugin-lazy); upstream asks not to lazy-load it.
+    lazy = false,
   },
 }

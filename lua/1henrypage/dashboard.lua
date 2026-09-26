@@ -6,23 +6,6 @@ local function term_cmd(cmd)
   return vim.fn.system(wrapped):gsub("%s+$", "")
 end
 
--- Helper: detect OS
-local _system_type
-local function system_type()
-  if _system_type then
-    return _system_type
-  end
-  local sysname = (vim.uv or vim.loop).os_uname().sysname:lower()
-  if sysname:find("darwin") then
-    _system_type = "darwin"
-  elseif sysname:find("linux") then
-    _system_type = "linux"
-  else
-    _system_type = "unknown"
-  end
-  return _system_type
-end
-
 -- Progress bar generator (each character is 1 display column wide)
 -- Braille block U+28xx: East Asian Width = N (Neutral) → always 1 display col
 local BAR_FILLED = "⣿"
@@ -178,15 +161,6 @@ local function get_battery_status(ff)
   return (out and (out:match(" charging") or out:match("AC Power"))) and true or false
 end
 
-local function battery_icon(capacity, charging)
-  if charging then
-    return "󰂄"
-  end
-  local icons = { "󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" }
-  local idx = math.min(math.floor(capacity / 10) + 1, #icons)
-  return icons[idx]
-end
-
 local function get_processes(ff)
   if ff and ff.processes then
     return ff.processes
@@ -227,7 +201,7 @@ local function build_header()
   local swap_pct = swap_total > 0 and (swap_used / swap_total * 100) or 0
   local disk_used, disk_total = get_disk(ff)
   local disk_pct = disk_total > 0 and (disk_used / disk_total * 100) or 0
-  local uptime_date, _uptime_pct = get_uptime(ff)
+  local uptime_date = get_uptime(ff)
   local bat_cap = get_battery_capacity(ff)
   local bat_stat = get_battery_status(ff)
   local procs = get_processes(ff)
